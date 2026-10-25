@@ -1,0 +1,124 @@
+{
+  "name": "oi-helper",
+  "displayName": "OI 学习助手",
+  "description": "给机房学弟学妹的 OI 学习路线：每日题单、知识点讲解、洛谷进度同步。",
+  "version": "0.1.0",
+  "publisher": "oi-helper",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Education"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "oiHelper",
+          "title": "OI 学习助手",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "oiHelper": [
+        {
+          "id": "oiHelper.today",
+          "name": "今日题单"
+        },
+        {
+          "id": "oiHelper.route",
+          "name": "学习路线"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "oiHelper.today",
+        "contents": "还没有选择学习路线。\n[选择学习路线](command:oiHelper.selectRoute)"
+      },
+      {
+        "view": "oiHelper.route",
+        "contents": "选好路线后，这里会列出所有单元、讲解和题目。\n[选择学习路线](command:oiHelper.selectRoute)"
+      }
+    ],
+    "commands": [
+      { "command": "oiHelper.selectRoute", "title": "选择学习路线", "category": "OI 学习助手", "icon": "$(list-tree)" },
+      { "command": "oiHelper.sync", "title": "同步洛谷进度", "category": "OI 学习助手", "icon": "$(sync)" },
+      { "command": "oiHelper.setLuoguUser", "title": "设置洛谷账号", "category": "OI 学习助手", "icon": "$(account)" },
+      { "command": "oiHelper.moreToday", "title": "再来一题", "category": "OI 学习助手", "icon": "$(add)" },
+      { "command": "oiHelper.openProblem", "title": "在洛谷打开", "category": "OI 学习助手", "icon": "$(link-external)" },
+      { "command": "oiHelper.startCoding", "title": "新建代码文件", "category": "OI 学习助手", "icon": "$(file-code)" },
+      { "command": "oiHelper.toggleDone", "title": "标记完成 / 取消", "category": "OI 学习助手", "icon": "$(check)" },
+      { "command": "oiHelper.openLesson", "title": "打开知识点讲解", "category": "OI 学习助手", "icon": "$(book)" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "oiHelper.sync", "when": "view == oiHelper.today", "group": "navigation@1" },
+        { "command": "oiHelper.moreToday", "when": "view == oiHelper.today", "group": "navigation@2" },
+        { "command": "oiHelper.selectRoute", "when": "view == oiHelper.route", "group": "navigation@1" },
+        { "command": "oiHelper.setLuoguUser", "when": "view == oiHelper.route", "group": "navigation@2" }
+      ],
+      "view/item/context": [
+        { "command": "oiHelper.startCoding", "when": "viewItem =~ /^problem/", "group": "inline@1" },
+        { "command": "oiHelper.toggleDone", "when": "viewItem =~ /^problem/", "group": "inline@2" },
+        { "command": "oiHelper.openLesson", "when": "viewItem == unit", "group": "inline@1" }
+      ],
+      "commandPalette": [
+        { "command": "oiHelper.openProblem", "when": "false" },
+        { "command": "oiHelper.startCoding", "when": "false" },
+        { "command": "oiHelper.toggleDone", "when": "false" },
+        { "command": "oiHelper.openLesson", "when": "false" }
+      ]
+    },
+    "configuration": {
+      "title": "OI 学习助手",
+      "properties": {
+        "oiHelper.dailyProblemCount": {
+          "type": "integer",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 20,
+          "description": "每天题单里放几道题。"
+        },
+        "oiHelper.luoguUser": {
+          "type": "string",
+          "default": "",
+          "description": "洛谷用户名或 UID（数字）。填了才能自动同步 AC 记录。"
+        },
+        "oiHelper.luoguCookie": {
+          "type": "string",
+          "default": "",
+          "description": "可选。如果同步提示需要登录，把浏览器里洛谷的 Cookie（含 __client_id 和 _uid）粘贴到这里。只保存在你自己的电脑上。"
+        },
+        "oiHelper.syncOnStartup": {
+          "type": "boolean",
+          "default": true,
+          "description": "打开 VS Code 时自动同步一次洛谷进度。"
+        },
+        "oiHelper.codeFolder": {
+          "type": "string",
+          "default": "luogu",
+          "description": "“新建代码文件”时，代码放在当前工作区的哪个文件夹里。"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test out/test/*.test.js",
+    "package": "npm run compile && vsce package --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "~1.85.0",
+    "@vscode/vsce": "^3.2.0",
+    "typescript": "^5.4.0"
+  }
+}
