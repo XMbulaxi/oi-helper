@@ -1,7 +1,7 @@
 {
   "name": "oi-helper",
   "displayName": "OI 学习助手",
-  "description": "给机房学弟学妹的 OI 工具：学习助手（从零基础到 NOIP 的学习路线、按考试排计划、讲解、洛谷同步）和比赛助手（一键运行测试点、导入洛谷样例、模拟赛计时）。",
+  "description": "给 OIer 的学习和比赛工具：学习助手（从零基础到 NOIP 的学习路线、按考试排计划、讲解、洛谷同步）和比赛助手（一键运行测试点、导入洛谷样例、模拟赛计时）。",
   "version": "0.5.0",
   "publisher": "oi-helper",
   "license": "MIT",
