@@ -22,6 +22,7 @@ import {
   todayPlan,
 } from "./plan";
 import { registerContest } from "./contest";
+import { HomeState, HomeView, TaskView } from "./home";
 import { fetchPassed, fetchProblemTitle, problemUrl, LuoguError, setLogger } from "./luogu";
 
 // ---------- content ----------
@@ -125,12 +126,6 @@ function hours(min: number): string {
 
 // ---------- app ----------
 
-type Node =
-  | { kind: "info"; label: string; tooltip?: string; icon?: string; command?: vscode.Command }
-  | { kind: "stage"; stage: Stage; inPlan: boolean }
-  | { kind: "unit"; stage: Stage; unitId: string; index: number }
-  | { kind: "task"; id: string };
-
 class App {
   stages: Stage[];
   store: Store;
@@ -194,200 +189,99 @@ class App {
     }
     this.changed.fire();
   }
-
-  taskItem(id: string): vscode.TreeItem {
-    const t = this.allTasks.get(id);
-    const done = this.store.done().has(id);
-    const unit = t && this.stages.flatMap((s) => s.units).find((u) => u.id === t.unitId);
-    if (!t) return new vscode.TreeItem(id);
-    if (t.kind === "lesson") {
-      const item = new vscode.TreeItem(t.title);
-      item.description = done ? "已读" : `约 ${t.minutes} 分钟`;
-      item.iconPath = new vscode.ThemeIcon(done ? "pass-filled" : "book",
-        done ? new vscode.ThemeColor("testing.iconPassed") : undefined);
-      item.contextValue = "lesson";
-      item.tooltip = "点击打开讲解，读完后点右边的 ✓ 打勾";
-      item.command = { command: "oiHelper.openLesson", title: "打开讲解", arguments: [t.unitId] };
-      return item;
-    }
-    const item = new vscode.TreeItem(`${t.id} ${t.title}`);
-    const lv = t.level === "basic" ? "基础" : "进阶";
-    item.description = done ? `${lv} · 已完成` : `${lv} · ${unit?.title ?? ""}`;
-    item.iconPath = new vscode.ThemeIcon(
-      done ? "pass-filled" : t.level === "basic" ? "circle-large-outline" : "flame",
-      done ? new vscode.ThemeColor("testing.iconPassed") : undefined,
-    );
-    item.contextValue = done ? "problem-done" : "problem";
-    item.tooltip = `${t.id} ${t.title}\n${lv}题，预计 ${t.minutes} 分钟\n点击在洛谷打开`;
-    item.command = { command: "oiHelper.openProblem", title: "在洛谷打开", arguments: [t.id] };
-    return item;
-  }
 }
 
-function infoItem(node: Extract<Node, { kind: "info" }>): vscode.TreeItem {
-  const item = new vscode.TreeItem(node.label);
-  item.tooltip = node.tooltip ?? node.label;
-  if (node.icon) item.iconPath = new vscode.ThemeIcon(node.icon);
-  item.command = node.command;
-  return item;
-}
+/** Everything the 学习助手 panel shows, as plain data. */
+async function snapshot(app: App): Promise<HomeState> {
+  if (!app.hasStart) return { hasStart: false };
+  const plan = await app.today();
+  const s = settings();
+  const today = dateKey(new Date());
+  const done = app.store.done();
+  const tasks = app.tasks();
+  const fc = app.forecast();
+  const units = app.stages.flatMap((x) => x.units);
+  const unitTitle = (id: string) => units.find((u) => u.id === id)?.title ?? "";
+  const view = (t: Task): TaskView => ({
+    id: t.id, kind: t.kind, level: t.level, title: t.title, minutes: t.minutes, done: done.has(t.id), unit: unitTitle(t.unitId),
+  });
 
-const GOAL_CMD: vscode.Command = { command: "oiHelper.setGoal", title: "设置目标" };
-
-class TodayView implements vscode.TreeDataProvider<Node> {
-  constructor(private app: App) {}
-  get onDidChangeTreeData() { return this.app.onChange; }
-
-  async getChildren(node?: Node): Promise<Node[]> {
-    if (node) return [];
-    const plan = await this.app.today();
-    if (!plan) return [];
-    const s = settings();
-    const today = dateKey(new Date());
-    const done = this.app.store.done();
-    const tasks = this.app.tasks();
-    const fc = this.app.forecast();
-    const out: Node[] = [];
-
-    // Goal line.
-    if (fc.examDate) {
-      out.push({
-        kind: "info", icon: "calendar", command: GOAL_CMD,
-        label: `目标 ${s.exam}：${shortDate(fc.examDate)}${s.examDateIsGuess ? "（估计）" : ""}，还有 ${fc.daysLeft} 天`,
-        tooltip: s.examDateIsGuess ? "考试日期是估计的，CCF 公布日期后请点这里改成准确日期" : "点这里修改目标",
-      });
-    } else if (s.exam !== "none") {
-      out.push({ kind: "info", icon: "calendar", command: GOAL_CMD, label: `${s.exam} 已经过了，点这里设置下一次考试` });
-    } else {
-      out.push({ kind: "info", icon: "calendar", command: GOAL_CMD, label: "还没有设置目标考试（点这里设置）" });
-    }
-
-    // Forecast line.
-    const left = hours(fc.neededAll);
-    if (fc.neededAll === 0) {
-      out.push({ kind: "info", icon: "star-full", label: "🎉 计划里的内容全部完成！" });
-    } else if (!fc.examDate) {
-      out.push({ kind: "info", icon: "pulse", label: `还剩约 ${left}，按现在的时间预计 ${shortDate(fc.finishDate)} 学完` });
-    } else if (fc.mode === "full") {
-      out.push({ kind: "info", icon: "pass", label: `时间够用：还剩约 ${left}，预计 ${shortDate(fc.finishDate)} 学完` });
-    } else if (fc.mode === "basicFirst") {
-      out.push({
-        kind: "info", icon: "warning", label: "时间只够做完基础题：先做基础题，进阶题考后再做",
-        tooltip: `考前可用约 ${hours(fc.availableMinutes!)}，基础题需要约 ${hours(fc.neededBasic)}，全部需要约 ${left}`,
-      });
-    } else {
-      const unit = this.app.stages.flatMap((x) => x.units).find((u) => u.id === fc.reachUnitId);
-      out.push({
-        kind: "info", icon: "warning",
-        label: unit ? `时间紧：考前大约只能学到「${unit.title}」的基础题` : "时间紧：考前很难学完，建议增加每天的学习时间",
-        tooltip: `考前可用约 ${hours(fc.availableMinutes!)}，只做基础题也需要约 ${hours(fc.neededBasic)}。可以点“设置目标”增加每天的时间。`,
-      });
-    }
-
-    const cur = currentUnit(tasks, done);
-    if (cur) {
-      const unit = this.app.stages.flatMap((x) => x.units).find((u) => u.id === cur.unitId);
-      out.push({
-        kind: "info", icon: "book", label: `正在学：${unit?.title}`, tooltip: "点击打开知识点讲解",
-        command: { command: "oiHelper.openLesson", title: "打开讲解", arguments: [cur.unitId] },
-      });
-    }
-
-    const budget = minutesOn(today, s.schedule);
-    const planned = plan.ids.reduce((sum, id) => sum + (this.app.allTasks.get(id)?.minutes ?? 0), 0);
-    out.push({
-      kind: "info", icon: "clock", command: GOAL_CMD,
-      label: `今天可用 ${budget} 分钟，任务约 ${planned} 分钟`,
-      tooltip: "点这里修改每天的学习时间",
-    });
-
-    for (const id of plan.ids) out.push({ kind: "task", id });
-    if (plan.ids.length > 0 && plan.ids.every((p) => done.has(p))) {
-      out.push({ kind: "info", label: "今日任务完成！想继续可以点右上角 +", icon: "smiley" });
-    }
-    return out;
+  // One line about whether the time is enough.
+  const left = hours(fc.neededAll);
+  let forecastText: string;
+  let tone: "good" | "warn" | "info" = "info";
+  if (fc.neededAll === 0) {
+    forecastText = "🎉 计划里的内容全部完成！";
+    tone = "good";
+  } else if (!fc.examDate) {
+    forecastText = `还剩约 ${left}，按现在的时间预计 ${shortDate(fc.finishDate)} 学完`;
+  } else if (fc.mode === "full") {
+    forecastText = `时间够用：还剩约 ${left}，预计 ${shortDate(fc.finishDate)} 学完`;
+    tone = "good";
+  } else if (fc.mode === "basicFirst") {
+    forecastText = `时间只够做完基础题（考前可用约 ${hours(fc.availableMinutes!)}，全部需要约 ${left}）。先做基础题，进阶题考后再做。`;
+    tone = "warn";
+  } else {
+    const u = units.find((x) => x.id === fc.reachUnitId);
+    forecastText = u
+      ? `时间紧：考前大约只能学到「${u.title}」的基础题。可以增加每天的学习时间。`
+      : "时间紧：考前很难学完，建议增加每天的学习时间。";
+    tone = "warn";
   }
 
-  getTreeItem(node: Node): vscode.TreeItem {
-    if (node.kind === "task") return this.app.taskItem(node.id);
-    if (node.kind === "info") return infoItem(node);
-    return new vscode.TreeItem("");
-  }
-}
-
-class RouteView implements vscode.TreeDataProvider<Node> {
-  constructor(private app: App) {}
-  get onDidChangeTreeData() { return this.app.onChange; }
-
-  getChildren(node?: Node): Node[] {
-    if (!this.app.hasStart) return [];
-    if (!node) {
-      const inPlan = new Set(this.app.planStages().map((s) => s.id));
-      const sync = this.app.store.lastSync;
-      return [
-        { kind: "info", label: sync ? `上次同步洛谷：${sync}` : "还没有同步过洛谷", icon: "sync",
-          command: { command: "oiHelper.sync", title: "同步" } },
-        ...this.app.stages.map((stage): Node => ({ kind: "stage", stage, inPlan: inPlan.has(stage.id) })),
-      ];
-    }
-    if (node.kind === "stage") {
-      return node.stage.units.map((u, index): Node => ({ kind: "unit", stage: node.stage, unitId: u.id, index }));
-    }
-    if (node.kind === "unit") {
-      return buildTasks([node.stage]).filter((t) => t.unitId === node.unitId).map((t): Node => ({ kind: "task", id: t.id }));
-    }
-    return [];
-  }
-
-  getTreeItem(node: Node): vscode.TreeItem {
-    const done = this.app.store.done();
-    switch (node.kind) {
-      case "task":
-        return this.app.taskItem(node.id);
-      case "info":
-        return infoItem(node);
-      case "stage": {
-        const probs = node.stage.units.flatMap((u) => u.problems);
-        const n = probs.filter((p) => done.has(p.pid)).length;
-        const cur = currentUnit(this.app.tasks(), done);
-        const item = new vscode.TreeItem(
-          node.stage.name,
-          cur?.stageId === node.stage.id ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.Collapsed,
-        );
-        const finish = this.app.forecast().stageFinish[node.stage.id];
-        item.description = `${n}/${probs.length} 题` + (node.inPlan ? (finish ? ` · 预计 ${shortDate(finish)} 学完` : "") : " · 不在本次计划内");
-        item.tooltip = node.stage.description;
-        item.iconPath = new vscode.ThemeIcon(n === probs.length ? "pass-filled" : node.inPlan ? "milestone" : "circle-slash");
-        item.id = `stage:${node.stage.id}`;
-        return item;
-      }
-      case "unit": {
-        const unit = node.stage.units.find((u) => u.id === node.unitId)!;
-        const ids = [lessonId(unit.id), ...unit.problems.map((p) => p.pid)];
-        const n = ids.filter((id) => done.has(id)).length;
-        const basic = unit.problems.filter((p) => p.level === "basic").length;
-        const cur = currentUnit(this.app.tasks(), done);
-        const item = new vscode.TreeItem(
-          `${node.index + 1}. ${unit.title}`,
-          cur?.unitId === unit.id ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.Collapsed,
-        );
-        item.description = `${n}/${ids.length} · 基础 ${basic} 进阶 ${unit.problems.length - basic}`;
-        item.iconPath = new vscode.ThemeIcon(n === ids.length ? "pass-filled" : cur?.unitId === unit.id ? "play-circle" : "circle-outline");
-        item.contextValue = "unit";
-        item.id = `unit:${unit.id}`;
-        return item;
-      }
-    }
-  }
+  const inPlan = new Set(app.planStages().map((x) => x.id));
+  const cur = currentUnit(tasks, done);
+  const planIds = new Set(tasks.map((t) => t.id));
+  const ids = plan?.ids ?? [];
+  return {
+    hasStart: true,
+    exam: s.exam,
+    examDate: fc.examDate ? shortDate(fc.examDate) : undefined,
+    examPassed: s.exam !== "none" && !fc.examDate,
+    examGuess: s.examDateIsGuess,
+    daysLeft: fc.daysLeft,
+    forecastText,
+    tone,
+    overall: { done: tasks.filter((t) => done.has(t.id)).length, total: tasks.length },
+    current: cur ? { unitId: cur.unitId, title: unitTitle(cur.unitId) } : undefined,
+    today: {
+      budget: minutesOn(today, s.schedule),
+      planned: ids.reduce((sum, id) => sum + (app.allTasks.get(id)?.minutes ?? 0), 0),
+      tasks: ids.map((id) => app.allTasks.get(id)).filter((t): t is Task => !!t).map(view),
+    },
+    lastSync: app.store.lastSync,
+    luoguUser: cfg().get<string>("luoguUser", ""),
+    stages: app.stages.map((st) => {
+      const all = buildTasks([st]);
+      return {
+        id: st.id,
+        name: st.name,
+        description: st.description,
+        inPlan: inPlan.has(st.id),
+        done: all.filter((t) => done.has(t.id)).length,
+        total: all.length,
+        finish: inPlan.has(st.id) && fc.stageFinish[st.id] ? shortDate(fc.stageFinish[st.id]) : undefined,
+        units: st.units.map((u) => {
+          const ts = all.filter((t) => t.unitId === u.id);
+          return {
+            id: u.id,
+            title: u.title,
+            done: ts.filter((t) => done.has(t.id)).length,
+            total: ts.length,
+            current: cur?.unitId === u.id && planIds.has(cur.id),
+            tasks: ts.map(view),
+          };
+        }),
+      };
+    }),
+  };
 }
 
 // ---------- commands ----------
 
-/** Commands from tree inline buttons get the Node; commands from item clicks get the id. */
+/** Commands get a task id (from the panel) or nothing. */
 function idOf(arg: unknown): string | undefined {
-  if (typeof arg === "string") return arg;
-  const n = arg as Node | undefined;
-  return n && n.kind === "task" ? n.id : undefined;
+  return typeof arg === "string" ? arg : undefined;
 }
 
 function codeTemplate(pid: string, title: string): string {
@@ -417,8 +311,9 @@ export function activate(ctx: vscode.ExtensionContext) {
   ctx.subscriptions.push(
     output,
     app.status,
-    vscode.window.registerTreeDataProvider("oiHelper.today", new TodayView(app)),
-    vscode.window.registerTreeDataProvider("oiHelper.route", new RouteView(app)),
+    vscode.window.registerWebviewViewProvider("oiHelper.home", new HomeView(app.onChange, () => snapshot(app)), {
+      webviewOptions: { retainContextWhenHidden: true },
+    }),
   );
 
   registerContest(ctx, output, codeTemplate);
@@ -526,7 +421,7 @@ export function activate(ctx: vscode.ExtensionContext) {
     const cookie = cfg().get<string>("luoguCookie", "").trim() || undefined;
     try {
       const pids = await vscode.window.withProgress(
-        { location: { viewId: "oiHelper.today" }, title: "正在同步洛谷" },
+        { location: { viewId: "oiHelper.home" }, title: "正在同步洛谷" },
         () => fetchPassed(user, cookie),
       );
       await app.store.setPassed(pids);
@@ -571,8 +466,6 @@ export function activate(ctx: vscode.ExtensionContext) {
   cmd("oiHelper.openLesson", async (arg) => {
     let unitId: string | undefined;
     if (typeof arg === "string") unitId = arg.replace(/^lesson:/, "");
-    else if ((arg as Node)?.kind === "unit") unitId = (arg as any).unitId;
-    else if ((arg as Node)?.kind === "task") unitId = app.allTasks.get((arg as any).id)?.unitId;
     const unit = app.stages.flatMap((s) => s.units).find((u) => u.id === unitId);
     if (!unit) return;
     const uri = vscode.Uri.file(path.join(ctx.extensionPath, "content", unit.lesson));

@@ -2,7 +2,7 @@
   "name": "oi-helper",
   "displayName": "OI 学习助手",
   "description": "给机房学弟学妹的 OI 工具：学习助手（从零基础到 NOIP 的学习路线、按考试排计划、讲解、洛谷同步）和比赛助手（一键运行测试点、导入洛谷样例、模拟赛计时）。",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "publisher": "oi-helper",
   "license": "MIT",
   "engines": {
@@ -33,12 +33,9 @@
     "views": {
       "oiHelper": [
         {
-          "id": "oiHelper.today",
-          "name": "今日任务"
-        },
-        {
-          "id": "oiHelper.route",
-          "name": "学习路线"
+          "type": "webview",
+          "id": "oiHelper.home",
+          "name": "学习助手"
         }
       ],
       "oiContest": [
@@ -49,16 +46,6 @@
         }
       ]
     },
-    "viewsWelcome": [
-      {
-        "view": "oiHelper.today",
-        "contents": "还没有选择从哪个阶段开始学。\n[选择起点阶段](command:oiHelper.selectRoute)"
-      },
-      {
-        "view": "oiHelper.route",
-        "contents": "选好起点后，这里会列出零基础、普及组、提高组三个阶段的所有单元、讲解和题目。\n[选择起点阶段](command:oiHelper.selectRoute)"
-      }
-    ],
     "commands": [
       {
         "command": "oiHelper.selectRoute",
@@ -160,33 +147,33 @@
       "view/title": [
         {
           "command": "oiHelper.sync",
-          "when": "view == oiHelper.today",
+          "when": "view == oiHelper.home",
           "group": "navigation@1"
-        },
-        {
-          "command": "oiHelper.moreToday",
-          "when": "view == oiHelper.today",
-          "group": "navigation@2"
         },
         {
           "command": "oiHelper.setGoal",
-          "when": "view == oiHelper.today",
-          "group": "navigation@3"
-        },
-        {
-          "command": "oiHelper.selectRoute",
-          "when": "view == oiHelper.route",
-          "group": "navigation@1"
-        },
-        {
-          "command": "oiHelper.setLuoguUser",
-          "when": "view == oiHelper.route",
+          "when": "view == oiHelper.home",
           "group": "navigation@2"
         },
         {
-          "command": "oiHelper.checkContent",
-          "when": "view == oiHelper.route",
+          "command": "oiHelper.selectRoute",
+          "when": "view == oiHelper.home",
           "group": "more@1"
+        },
+        {
+          "command": "oiHelper.setLuoguUser",
+          "when": "view == oiHelper.home",
+          "group": "more@2"
+        },
+        {
+          "command": "oiHelper.setLuoguCookie",
+          "when": "view == oiHelper.home",
+          "group": "more@3"
+        },
+        {
+          "command": "oiHelper.checkContent",
+          "when": "view == oiHelper.home",
+          "group": "more@4"
         },
         {
           "command": "oiHelper.startContest",
@@ -197,23 +184,6 @@
           "command": "oiHelper.contestHelp",
           "when": "view == oiContest.cases",
           "group": "navigation@2"
-        }
-      ],
-      "view/item/context": [
-        {
-          "command": "oiHelper.startCoding",
-          "when": "viewItem =~ /^problem/",
-          "group": "inline@1"
-        },
-        {
-          "command": "oiHelper.toggleDone",
-          "when": "viewItem =~ /^(problem|lesson)/",
-          "group": "inline@2"
-        },
-        {
-          "command": "oiHelper.openLesson",
-          "when": "viewItem == unit",
-          "group": "inline@1"
         }
       ],
       "commandPalette": [
