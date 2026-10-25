@@ -1,8 +1,8 @@
 {
   "name": "oi-helper",
   "displayName": "OI 学习助手",
-  "description": "给机房学弟学妹的 OI 学习路线：从零基础到 NOIP，按考试日期排每日任务，知识点讲解，洛谷进度同步。",
-  "version": "0.2.0",
+  "description": "给机房学弟学妹的 OI 学习路线：从零基础到 NOIP，按考试日期排每日任务，知识点讲解，洛谷进度同步，一键运行测试点。",
+  "version": "0.3.0",
   "publisher": "oi-helper",
   "license": "MIT",
   "engines": {
@@ -113,6 +113,24 @@
         "title": "用洛谷核对题目",
         "category": "OI 学习助手",
         "icon": "$(checklist)"
+      },
+      {
+        "command": "oiHelper.runTests",
+        "title": "运行测试点",
+        "category": "OI 学习助手",
+        "icon": "$(play)"
+      },
+      {
+        "command": "oiHelper.pickTestFolder",
+        "title": "选择测试点文件夹",
+        "category": "OI 学习助手",
+        "icon": "$(folder)"
+      },
+      {
+        "command": "oiHelper.testHelp",
+        "title": "测试点放在哪",
+        "category": "OI 学习助手",
+        "icon": "$(question)"
       }
     ],
     "menus": {
@@ -182,6 +200,25 @@
           "command": "oiHelper.openLesson",
           "when": "false"
         }
+      ],
+      "editor/title": [
+        {
+          "command": "oiHelper.runTests",
+          "when": "resourceExtname =~ /^\\.(cpp|cc|cxx)$/i",
+          "group": "navigation@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "oiHelper.runTests",
+          "when": "resourceExtname =~ /^\\.(cpp|cc|cxx)$/i",
+          "group": "oiHelper@1"
+        },
+        {
+          "command": "oiHelper.pickTestFolder",
+          "when": "resourceExtname =~ /^\\.(cpp|cc|cxx)$/i",
+          "group": "oiHelper@2"
+        }
       ]
     },
     "configuration": {
@@ -243,9 +280,40 @@
           "type": "string",
           "default": "luogu",
           "description": "“新建代码文件”时，代码放在当前工作区的哪个文件夹里。"
+        },
+        "oiHelper.compiler": {
+          "type": "string",
+          "default": "g++",
+          "description": "运行测试点时用的编译器。找不到时填完整路径，例如 C:\\\\mingw64\\\\bin\\\\g++.exe。"
+        },
+        "oiHelper.compileArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "-O2",
+            "-std=c++14"
+          ],
+          "description": "编译参数。默认和 CSP/NOIP 考场一致（-O2 -std=c++14）。"
+        },
+        "oiHelper.timeLimit": {
+          "type": "integer",
+          "default": 1000,
+          "minimum": 50,
+          "maximum": 60000,
+          "description": "每个测试点的时间限制（毫秒）。"
         }
       }
-    }
+    },
+    "keybindings": [
+      {
+        "command": "oiHelper.runTests",
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t",
+        "when": "editorTextFocus && resourceExtname =~ /^\\.(cpp|cc|cxx)$/i"
+      }
+    ]
   },
   "scripts": {
     "compile": "tsc -p ./",

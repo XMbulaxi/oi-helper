@@ -21,6 +21,7 @@ import {
   stagesFor,
   todayPlan,
 } from "./plan";
+import { registerJudge } from "./judgeView";
 import { fetchPassed, fetchProblemTitle, problemUrl, LuoguError, setLogger } from "./luogu";
 
 // ---------- content ----------
@@ -420,6 +421,8 @@ export function activate(ctx: vscode.ExtensionContext) {
     vscode.window.registerTreeDataProvider("oiHelper.route", new RouteView(app)),
   );
 
+  registerJudge(ctx, output);
+
   const cmd = (id: string, fn: (...a: any[]) => unknown) =>
     ctx.subscriptions.push(vscode.commands.registerCommand(id, fn));
 
@@ -609,11 +612,18 @@ export function activate(ctx: vscode.ExtensionContext) {
           const p = problems[i];
           progress.report({ message: `${i + 1}/${problems.length} ${p.pid}`, increment: 100 / problems.length });
           try {
-            const title = await fetchProblemTitle(p.pid, cookie);
-            if (title === undefined) bad.push(`| ${p.pid} | ${p.title} | （洛谷上没有这道题） | ${p.stage} · ${p.unit} |`);
-            else if (!sameTitle(title, p.title)) bad.push(`| ${p.pid} | ${p.title} | ${title} | ${p.stage} · ${p.unit} |`);
+            const r = await fetchProblemTitle(p.pid, cookie);
+            if ("missing" in r) bad.push(`| ${p.pid} | ${p.title} | （洛谷上没有这道题） | ${p.stage} · ${p.unit} |`);
+            else if ("unknown" in r) failed.push(`${p.pid}（${r.unknown}）`);
+            else if (!sameTitle(r.title, p.title)) bad.push(`| ${p.pid} | ${p.title} | ${r.title} | ${p.stage} · ${p.unit} |`);
           } catch (e) {
             failed.push(`${p.pid}（${(e as Error).message}）`);
+          }
+          if (i === 4 && failed.length === 5) {
+            // Every lookup so far failed the same way: Luogu probably changed its pages. Stop early.
+            failed.push("前 5 题都查不到题名，已停止核对。请把“OI 学习助手”输出面板里的日志复制给维护插件的人。");
+            output.show();
+            break;
           }
           await new Promise((r) => setTimeout(r, 400)); // be gentle with Luogu
         }
