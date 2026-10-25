@@ -15,7 +15,7 @@
       "problems": [
         {
           "pid": "P1601",
-          "title": "A+B Problem（高精）",
+          "title": "高精度加法",
           "level": "basic"
         },
         {
@@ -35,7 +35,7 @@
         },
         {
           "pid": "P1480",
-          "title": "A/B Problem",
+          "title": "A/B Problem（高精度除法Ⅰ）",
           "level": "advanced"
         },
         {
@@ -326,8 +326,8 @@
           "level": "advanced"
         },
         {
-          "pid": "P1019",
-          "title": "[NOIP2000 提高组] 单词接龙",
+          "pid": "P1025",
+          "title": "[NOIP 2001 提高组] 数的划分",
           "level": "advanced"
         }
       ]
@@ -381,7 +381,7 @@
       "problems": [
         {
           "pid": "P1216",
-          "title": "[USACO1.5] [IOI1994] 数字三角形 Number Triangles",
+          "title": "[IOI 1994 / USACO1.5] 数字三角形 Number Triangles",
           "level": "basic"
         },
         {
@@ -406,7 +406,7 @@
         },
         {
           "pid": "P1439",
-          "title": "【模板】最长公共子序列",
+          "title": "两个排列的最长公共子序列",
           "level": "advanced"
         },
         {
@@ -421,7 +421,7 @@
         },
         {
           "pid": "P1280",
-          "title": "尼克的任务",
+          "title": "[CHCI 2002 National Competition #2 Juniors] 尼克的任务",
           "level": "advanced"
         }
       ]
@@ -522,7 +522,7 @@
         },
         {
           "pid": "P1113",
-          "title": "杂务",
+          "title": "[USACO02FEB] 杂务",
           "level": "basic"
         },
         {
@@ -616,7 +616,7 @@
         },
         {
           "pid": "P1342",
-          "title": "请柬",
+          "title": "[CERC1998] 请柬",
           "level": "advanced"
         },
         {

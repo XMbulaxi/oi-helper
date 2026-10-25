@@ -42,7 +42,7 @@
       "problems": [
         {
           "pid": "P3865",
-          "title": "【模板】ST 表 && RMQ 问题",
+          "title": "【模板】ST 表 & RMQ 问题",
           "level": "basic"
         },
         {
@@ -74,7 +74,7 @@
         },
         {
           "pid": "P1886",
-          "title": "滑动窗口 /【模板】单调队列",
+          "title": "【模板】单调队列 / 滑动窗口",
           "level": "basic"
         },
         {
@@ -212,7 +212,7 @@
       "problems": [
         {
           "pid": "P1892",
-          "title": "[BalticOI2003] 团伙",
+          "title": "[BalticOI 2003] 团伙 (Day 2)",
           "level": "basic"
         },
         {
@@ -248,8 +248,8 @@
       "lesson": "lessons/tigao/08-search.md",
       "problems": [
         {
-          "pid": "P1032",
-          "title": "[NOIP2002 提高组] 字串变换",
+          "pid": "P2730",
+          "title": "[IOI 1996 / USACO3.2] 魔板 Magic Squares",
           "level": "basic"
         },
         {
@@ -259,7 +259,7 @@
         },
         {
           "pid": "P1120",
-          "title": "小木棍",
+          "title": "[CERC 1995] 小木棍",
           "level": "advanced"
         },
         {
@@ -353,7 +353,7 @@
         },
         {
           "pid": "P1156",
-          "title": "垃圾陷阱",
+          "title": "[USACO01OPEN] 垃圾陷阱",
           "level": "advanced"
         }
       ]
@@ -380,7 +380,7 @@
         },
         {
           "pid": "P2016",
-          "title": "战略游戏",
+          "title": "[SEERC 2000] 战略游戏",
           "level": "advanced"
         },
         {
@@ -530,7 +530,7 @@
         },
         {
           "pid": "P1347",
-          "title": "排序",
+          "title": "[ECNA 2001] 排序",
           "level": "basic"
         },
         {
@@ -589,12 +589,12 @@
         },
         {
           "pid": "P3387",
-          "title": "【模板】缩点",
+          "title": "【模板】缩点 / 强连通分量",
           "level": "basic"
         },
         {
           "pid": "P3388",
-          "title": "【模板】割点（割顶）",
+          "title": "【模板】割点",
           "level": "basic"
         },
         {
@@ -604,7 +604,7 @@
         },
         {
           "pid": "P2812",
-          "title": "校园网络",
+          "title": "校园网络 / [IOI 1996 / USACO5.3] 校园网 Network of Schools 加强版",
           "level": "advanced"
         }
       ]
@@ -648,7 +648,7 @@
         },
         {
           "pid": "P8306",
-          "title": "【模板】字典树",
+          "title": "【模板】字典树 / Trie",
           "level": "basic"
         },
         {
@@ -700,7 +700,7 @@
         },
         {
           "pid": "P1516",
-          "title": "青蛙的约会",
+          "title": "[ZJOI2002] 青蛙的约会",
           "level": "advanced"
         },
         {
