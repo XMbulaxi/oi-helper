@@ -21,6 +21,8 @@ export interface CaseResult {
   ms: number;
   /** For WA: where the output first differs. For RE: exit code / signal. */
   detail?: string;
+  /** The program's output (cut to the first few KB), for showing next to the answer. */
+  got?: string;
 }
 
 export interface Diff {
@@ -202,13 +204,76 @@ export function runCase(exe: string, ioName: string, tc: TestCase, cwd: string, 
       if (code !== 0) return done({ verdict: "RE", detail: signal ? `被信号 ${signal} 终止` : `返回值 ${code}（main 要 return 0；也可能是数组越界、除以 0、栈溢出）` });
       let got = Buffer.concat(chunks).toString("utf8");
       if (fs.existsSync(outFile)) got = fs.readFileSync(outFile, "utf8");
+      const shown = clip(got, SHOW_LIMIT);
       const d = compareOutput(fs.readFileSync(tc.answer, "utf8"), got);
-      if (d.ok) return done({ verdict: "AC" });
-      done({ verdict: "WA", detail: `第 ${d.line} 行不同：应为「${clip(d.expected!)}」，你的输出「${clip(d.got!)}」` });
+      if (d.ok) return done({ verdict: "AC", got: shown });
+      done({ verdict: "WA", got: shown, detail: `第 ${d.line} 行不同：应为「${clip(d.expected!)}」，你的输出「${clip(d.got!)}」` });
     });
   });
 }
 
-function clip(s: string, n = 80): string {
+/** How much of a file or output to show in the panel. */
+export const SHOW_LIMIT = 8 * 1024;
+
+export function clip(s: string, n = 80): string {
   return s.length > n ? s.slice(0, n) + "…" : s;
+}
+
+// ---------- managing test case files ----------
+
+/** Folder where new test cases for a code file go: luogu/P1001.cpp -> luogu/P1001/ */
+export function defaultCaseDir(codeFile: string): string {
+  return path.join(path.dirname(codeFile), path.basename(codeFile, path.extname(codeFile)));
+}
+
+/** Next free case name in a folder: 1, 2, 3, ... */
+export function nextCaseName(dir: string): string {
+  let max = 0;
+  for (const c of casesIn(dir)) {
+    const n = Number(c.name);
+    if (Number.isInteger(n) && n > max) max = n;
+  }
+  let n = max + 1;
+  while (fs.existsSync(path.join(dir, `${n}.in`))) n++;
+  return String(n);
+}
+
+/** Add a test case as <dir>/<n>.in and <dir>/<n>.out. Returns the new case. */
+export function addCase(dir: string, input = "", answer = ""): TestCase {
+  fs.mkdirSync(dir, { recursive: true });
+  const name = nextCaseName(dir);
+  const tc = { name, input: path.join(dir, `${name}.in`), answer: path.join(dir, `${name}.out`) };
+  fs.writeFileSync(tc.input, input);
+  fs.writeFileSync(tc.answer, answer);
+  return tc;
+}
+
+/**
+ * Compiled programs are kept between runs (keyed by source path), and only
+ * rebuilt when the source or the compile options change.
+ */
+const built = new Map<string, { key: string; dir: string; result: CompileResult }>();
+
+export async function compileCached(codeFile: string, compiler: string, args: string[]): Promise<CompileResult> {
+  const key = `${fs.statSync(codeFile).mtimeMs}|${compiler}|${args.join(" ")}`;
+  const hit = built.get(codeFile);
+  if (hit && hit.key === key && hit.result.ok && fs.existsSync(hit.result.exe)) return hit.result;
+  const dir = hit?.dir && fs.existsSync(hit.dir) ? hit.dir : workDir();
+  const result = await compile(codeFile, dir, compiler, args);
+  built.set(codeFile, { key, dir, result });
+  return result;
+}
+
+/** Remove the cached builds (called when the extension stops). */
+export function cleanBuilds() {
+  for (const b of built.values()) fs.rmSync(b.dir, { recursive: true, force: true });
+  built.clear();
+}
+
+/** Problem name from Competitive Companion data: Luogu pid from the URL, else a safe file name. */
+export function problemFileName(name: string, url: string): string {
+  const m = url.match(/luogu\.com\.cn\/problem\/([A-Za-z0-9_]+)/);
+  if (m) return m[1];
+  const safe = name.replace(/[\\/:*?"<>|]/g, " ").replace(/\s+/g, "_").replace(/^_+|_+$/g, "");
+  return safe.slice(0, 60) || "problem";
 }

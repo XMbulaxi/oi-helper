@@ -1,8 +1,8 @@
 {
   "name": "oi-helper",
   "displayName": "OI 学习助手",
-  "description": "给机房学弟学妹的 OI 学习路线：从零基础到 NOIP，按考试日期排每日任务，知识点讲解，洛谷进度同步，一键运行测试点。",
-  "version": "0.3.0",
+  "description": "给机房学弟学妹的 OI 工具：学习助手（从零基础到 NOIP 的学习路线、按考试排计划、讲解、洛谷同步）和比赛助手（一键运行测试点、导入洛谷样例、模拟赛计时）。",
+  "version": "0.4.0",
   "publisher": "oi-helper",
   "license": "MIT",
   "engines": {
@@ -22,6 +22,11 @@
           "id": "oiHelper",
           "title": "OI 学习助手",
           "icon": "media/icon.svg"
+        },
+        {
+          "id": "oiContest",
+          "title": "OI 比赛助手",
+          "icon": "media/contest.svg"
         }
       ]
     },
@@ -34,6 +39,13 @@
         {
           "id": "oiHelper.route",
           "name": "学习路线"
+        }
+      ],
+      "oiContest": [
+        {
+          "type": "webview",
+          "id": "oiContest.cases",
+          "name": "测试点"
         }
       ]
     },
@@ -117,20 +129,31 @@
       {
         "command": "oiHelper.runTests",
         "title": "运行测试点",
-        "category": "OI 学习助手",
+        "category": "OI 比赛助手",
         "icon": "$(play)"
       },
       {
         "command": "oiHelper.pickTestFolder",
         "title": "选择测试点文件夹",
-        "category": "OI 学习助手",
+        "category": "OI 比赛助手",
         "icon": "$(folder)"
       },
       {
-        "command": "oiHelper.testHelp",
-        "title": "测试点放在哪",
-        "category": "OI 学习助手",
+        "command": "oiHelper.contestHelp",
+        "title": "比赛助手怎么用",
+        "category": "OI 比赛助手",
         "icon": "$(question)"
+      },
+      {
+        "command": "oiHelper.startContest",
+        "title": "开始模拟赛计时",
+        "category": "OI 比赛助手",
+        "icon": "$(watch)"
+      },
+      {
+        "command": "oiHelper.stopContest",
+        "title": "结束模拟赛计时",
+        "category": "OI 比赛助手"
       }
     ],
     "menus": {
@@ -164,6 +187,16 @@
           "command": "oiHelper.checkContent",
           "when": "view == oiHelper.route",
           "group": "more@1"
+        },
+        {
+          "command": "oiHelper.startContest",
+          "when": "view == oiContest.cases",
+          "group": "navigation@1"
+        },
+        {
+          "command": "oiHelper.contestHelp",
+          "when": "view == oiContest.cases",
+          "group": "navigation@2"
         }
       ],
       "view/item/context": [
@@ -302,7 +335,17 @@
           "default": 1000,
           "minimum": 50,
           "maximum": 60000,
-          "description": "每个测试点的时间限制（毫秒）。"
+          "description": "默认的时间限制（毫秒）。在比赛助手面板里可以给每道题单独改；从洛谷导入的题会自动用题目的时间限制。"
+        },
+        "oiHelper.companion": {
+          "type": "boolean",
+          "default": true,
+          "description": "接收浏览器扩展 Competitive Companion 发来的题目和样例（在洛谷题目页点它的绿色加号）。"
+        },
+        "oiHelper.companionPort": {
+          "type": "integer",
+          "default": 27121,
+          "description": "接收 Competitive Companion 的端口。默认 27121，和 Competitive Companion 的默认设置一致。改了要重启 VS Code。"
         }
       }
     },

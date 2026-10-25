@@ -21,7 +21,7 @@ import {
   stagesFor,
   todayPlan,
 } from "./plan";
-import { registerJudge } from "./judgeView";
+import { registerContest } from "./contest";
 import { fetchPassed, fetchProblemTitle, problemUrl, LuoguError, setLogger } from "./luogu";
 
 // ---------- content ----------
@@ -421,7 +421,7 @@ export function activate(ctx: vscode.ExtensionContext) {
     vscode.window.registerTreeDataProvider("oiHelper.route", new RouteView(app)),
   );
 
-  registerJudge(ctx, output);
+  registerContest(ctx, output, codeTemplate);
 
   const cmd = (id: string, fn: (...a: any[]) => unknown) =>
     ctx.subscriptions.push(vscode.commands.registerCommand(id, fn));

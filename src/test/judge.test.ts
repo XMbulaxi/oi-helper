@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 import { execSync } from "child_process";
-import { casesIn, compareOutput, compile, findCases, runCase, workDir } from "../judge";
+import { addCase, casesIn, compareOutput, compile, findCases, nextCaseName, problemFileName, runCase, workDir } from "../judge";
 import { parseProblemTitle } from "../luogu";
 
 test("compareOutput ignores trailing spaces, \\r and final blank lines", () => {
@@ -85,4 +85,16 @@ test("compile and judge AC / WA / TLE / RE / freopen / CE", { skip: !hasGpp }, a
   const ce = await run("ce", "int main(){ this is not c++ }");
   assert.equal(ce.c.ok, false);
   assert.match(ce.c.message, /error/);
+});
+
+test("addCase numbers new cases and problemFileName picks the Luogu pid", () => {
+  const dir = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "oi-add-")), "P1001");
+  assert.equal(addCase(dir, "1 2\n", "3\n").name, "1");
+  assert.equal(addCase(dir).name, "2");
+  assert.equal(nextCaseName(dir), "3");
+  assert.deepEqual(casesIn(dir).map((c) => c.name), ["1", "2"]);
+  assert.equal(fs.readFileSync(path.join(dir, "1.out"), "utf8"), "3\n");
+  assert.equal(problemFileName("P1001 A+B Problem", "https://www.luogu.com.cn/problem/P1001"), "P1001");
+  assert.equal(problemFileName("A. Watermelon", "https://codeforces.com/problemset/problem/4/A"), "A._Watermelon");
+  assert.equal(problemFileName("a/b:c", ""), "a_b_c");
 });
