@@ -332,6 +332,24 @@ export function activate(ctx: vscode.ExtensionContext) {
     if (v.trim()) await vscode.commands.executeCommand("oiHelper.sync");
   });
 
+  cmd("oiHelper.setLuoguCookie", async () => {
+    const cfg = vscode.workspace.getConfiguration("oiHelper");
+    const v = await vscode.window.showInputBox({
+      prompt: "粘贴洛谷登录 Cookie，格式：__client_id=xxx; _uid=xxx（只保存在你自己的电脑上）",
+      placeHolder: "__client_id=...; _uid=...",
+      password: true,
+      ignoreFocusOut: true,
+    });
+    if (v === undefined) return;
+    const cleaned = v.trim().replace(/^cookie:\s*/i, "");
+    if (cleaned && !/__client_id=/.test(cleaned)) {
+      vscode.window.showWarningMessage("没有找到 __client_id，请检查复制的内容。");
+      return;
+    }
+    await cfg.update("luoguCookie", cleaned, vscode.ConfigurationTarget.Global);
+    if (cleaned) await vscode.commands.executeCommand("oiHelper.sync");
+  });
+
   cmd("oiHelper.sync", async (silent?: boolean) => {
     const cfg = vscode.workspace.getConfiguration("oiHelper");
     const user = cfg.get<string>("luoguUser", "").trim();
@@ -355,9 +373,9 @@ export function activate(ctx: vscode.ExtensionContext) {
       const msg = e instanceof LuoguError ? e.message : `同步失败：${(e as Error).message}`;
       output.appendLine(`同步失败：${msg}`);
       if (silent !== true) {
-        const a = await vscode.window.showErrorMessage(msg + " 也可以先手动给做完的题打勾。", "查看日志", "打开设置");
+        const a = await vscode.window.showErrorMessage(msg + " 也可以先手动给做完的题打勾。", "设置洛谷 Cookie", "查看日志");
         if (a === "查看日志") output.show();
-        if (a === "打开设置") await vscode.commands.executeCommand("workbench.action.openSettings", "oiHelper");
+        if (a === "设置洛谷 Cookie") await vscode.commands.executeCommand("oiHelper.setLuoguCookie");
       }
     }
   });

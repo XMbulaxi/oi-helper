@@ -2,7 +2,7 @@
   "name": "oi-helper",
   "displayName": "OI 学习助手",
   "description": "给机房学弟学妹的 OI 学习路线：每日题单、知识点讲解、洛谷进度同步。",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "oi-helper",
   "license": "MIT",
   "engines": {
@@ -51,6 +51,7 @@
       { "command": "oiHelper.selectRoute", "title": "选择学习路线", "category": "OI 学习助手", "icon": "$(list-tree)" },
       { "command": "oiHelper.sync", "title": "同步洛谷进度", "category": "OI 学习助手", "icon": "$(sync)" },
       { "command": "oiHelper.setLuoguUser", "title": "设置洛谷账号", "category": "OI 学习助手", "icon": "$(account)" },
+      { "command": "oiHelper.setLuoguCookie", "title": "设置洛谷 Cookie", "category": "OI 学习助手", "icon": "$(key)" },
       { "command": "oiHelper.moreToday", "title": "再来一题", "category": "OI 学习助手", "icon": "$(add)" },
       { "command": "oiHelper.openProblem", "title": "在洛谷打开", "category": "OI 学习助手", "icon": "$(link-external)" },
       { "command": "oiHelper.startCoding", "title": "新建代码文件", "category": "OI 学习助手", "icon": "$(file-code)" },

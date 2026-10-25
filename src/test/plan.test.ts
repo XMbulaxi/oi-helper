@@ -83,3 +83,27 @@ test("challengeCookie finds the C3VK value in Luogu's anti-bot page", async () =
   assert.equal(challengeCookie("<script>document.cookie='C3VK=a1b2c3;path=/;max-age=300';location.reload();</script>"), "a1b2c3");
   assert.equal(challengeCookie('{"data":{}}'), undefined);
 });
+
+test("getJson keeps cookies across redirects (Luogu's redirect loop)", async () => {
+  const http = await import("http");
+  const { getJson } = await import("../luogu");
+  const server = http.createServer((req, res) => {
+    const cookie = req.headers.cookie ?? "";
+    if (req.url === "/login-only") {
+      res.writeHead(302, { Location: "/auth/login" }).end();
+    } else if (!cookie.includes("__client_id=abc")) {
+      // Without the cookie it just set, the server redirects to itself forever.
+      res.writeHead(302, { "Set-Cookie": "__client_id=abc; path=/; HttpOnly", Location: req.url }).end();
+    } else {
+      res.writeHead(200, { "Content-Type": "application/json" }).end(JSON.stringify({ data: { passed: [{ pid: "P1001" }] } }));
+    }
+  });
+  await new Promise<void>((r) => server.listen(0, r));
+  const port = (server.address() as any).port;
+  try {
+    assert.deepEqual(await getJson(`http://127.0.0.1:${port}/user/1/practice`), { data: { passed: [{ pid: "P1001" }] } });
+    await assert.rejects(getJson(`http://127.0.0.1:${port}/login-only`), /登录/);
+  } finally {
+    server.close();
+  }
+});

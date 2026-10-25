@@ -22,7 +22,7 @@
 洛谷没有官方公开的接口，插件读取的是洛谷网页"练习"页面用的数据。
 
 - 在设置 `oiHelper.luoguUser` 里填用户名或 UID。
-- 如果提示需要登录，在浏览器登录洛谷，按 F12 打开开发者工具，在"应用 / Application → Cookie"里找到 `__client_id` 和 `_uid`，按 `__client_id=xxx; _uid=xxx` 的格式填到 `oiHelper.luoguCookie`。Cookie 只保存在你自己的电脑上，**不要发给别人**。
+- 如果提示需要登录：在浏览器登录洛谷，按 F12 打开开发者工具，在"应用 / Application → Cookies → https://www.luogu.com.cn"里找到 `__client_id` 和 `_uid` 两行，按 `__client_id=xxx; _uid=xxx` 的格式拼好。然后在 VS Code 里按 `Ctrl+Shift+P`，运行"设置洛谷 Cookie"，粘贴进去。Cookie 只保存在你自己的电脑上，**不要发给别人**。在浏览器里退出洛谷登录会让这个 Cookie 失效，到时重新复制一次即可。
 - 如果洛谷改了网页导致同步失败，需要修改的代码在 `src/luogu.ts`。
 
 ## 怎么改内容（不用会写代码）
