@@ -15,7 +15,7 @@ import {
   allProblems,
   totalDays,
 } from "./plan";
-import { fetchPassed, problemUrl, LuoguError } from "./luogu";
+import { fetchPassed, problemUrl, LuoguError, setLogger } from "./luogu";
 
 // ---------- content ----------
 
@@ -295,7 +295,10 @@ int main() {
 
 export function activate(ctx: vscode.ExtensionContext) {
   const app = new App(ctx);
+  const output = vscode.window.createOutputChannel("OI 学习助手");
+  setLogger((line) => output.appendLine(`[${new Date().toLocaleTimeString()}] ${line}`));
   ctx.subscriptions.push(
+    output,
     app.status,
     vscode.window.registerTreeDataProvider("oiHelper.today", new TodayView(app)),
     vscode.window.registerTreeDataProvider("oiHelper.route", new RouteView(app)),
@@ -350,9 +353,11 @@ export function activate(ctx: vscode.ExtensionContext) {
       if (silent !== true) vscode.window.showInformationMessage(`同步完成：洛谷上共 AC ${pids.length} 题。`);
     } catch (e) {
       const msg = e instanceof LuoguError ? e.message : `同步失败：${(e as Error).message}`;
+      output.appendLine(`同步失败：${msg}`);
       if (silent !== true) {
-        const a = await vscode.window.showErrorMessage(msg + " 也可以先手动给做完的题打勾。", "打开设置");
-        if (a) await vscode.commands.executeCommand("workbench.action.openSettings", "oiHelper");
+        const a = await vscode.window.showErrorMessage(msg + " 也可以先手动给做完的题打勾。", "查看日志", "打开设置");
+        if (a === "查看日志") output.show();
+        if (a === "打开设置") await vscode.commands.executeCommand("workbench.action.openSettings", "oiHelper");
       }
     }
   });

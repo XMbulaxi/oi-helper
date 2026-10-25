@@ -77,3 +77,9 @@ test("bundled content is valid", () => {
     }
   }
 });
+
+test("challengeCookie finds the C3VK value in Luogu's anti-bot page", async () => {
+  const { challengeCookie } = await import("../luogu");
+  assert.equal(challengeCookie("<script>document.cookie='C3VK=a1b2c3;path=/;max-age=300';location.reload();</script>"), "a1b2c3");
+  assert.equal(challengeCookie('{"data":{}}'), undefined);
+});

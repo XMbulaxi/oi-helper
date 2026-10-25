@@ -2,7 +2,7 @@
   "name": "oi-helper",
   "displayName": "OI 学习助手",
   "description": "给机房学弟学妹的 OI 学习路线：每日题单、知识点讲解、洛谷进度同步。",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "oi-helper",
   "license": "MIT",
   "engines": {
