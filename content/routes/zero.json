@@ -1,165 +1,566 @@
 {
   "id": "zero",
-  "name": "零基础路线",
-  "description": "从没写过代码开始，学会 C++ 基本语法和最简单的算法思想。学完可以进入普及组路线。",
+  "name": "零基础",
+  "description": "从没写过代码开始，学会 C++ 语法、模拟、枚举和递归。学完可以进入普及组。",
+  "minutes": {
+    "basic": 25,
+    "advanced": 45,
+    "lesson": 40
+  },
   "units": [
     {
       "id": "z01-sequence",
       "title": "顺序结构：输入、输出和计算",
-      "days": 4,
       "lesson": "lessons/zero/01-sequence.md",
       "problems": [
-        { "pid": "P1000", "title": "超级玛丽游戏" },
-        { "pid": "P1001", "title": "A+B Problem" },
-        { "pid": "P5703", "title": "【深基2.例5】苹果采购" },
-        { "pid": "P5704", "title": "【深基2.例6】字母转换" },
-        { "pid": "P5705", "title": "【深基2.例7】数字反转" },
-        { "pid": "P5706", "title": "【深基2.例8】再分肥宅水" },
-        { "pid": "P5708", "title": "【深基2.习2】三角形面积" },
-        { "pid": "P1421", "title": "小玉买文具" },
-        { "pid": "P1425", "title": "小鱼的游泳时间" },
-        { "pid": "P3954", "title": "[NOIP2017 普及组] 成绩" }
+        {
+          "pid": "P1000",
+          "title": "超级玛丽游戏",
+          "level": "basic"
+        },
+        {
+          "pid": "P1001",
+          "title": "A+B Problem",
+          "level": "basic"
+        },
+        {
+          "pid": "P5703",
+          "title": "【深基2.例5】苹果采购",
+          "level": "basic"
+        },
+        {
+          "pid": "P5704",
+          "title": "【深基2.例6】字母转换",
+          "level": "basic"
+        },
+        {
+          "pid": "P5705",
+          "title": "【深基2.例7】数字反转",
+          "level": "basic"
+        },
+        {
+          "pid": "P5706",
+          "title": "【深基2.例8】再分肥宅水",
+          "level": "basic"
+        },
+        {
+          "pid": "P5708",
+          "title": "【深基2.习2】三角形面积",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1421",
+          "title": "小玉买文具",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1425",
+          "title": "小鱼的游泳时间",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3954",
+          "title": "[NOIP2017 普及组] 成绩",
+          "level": "advanced"
+        }
       ]
     },
     {
       "id": "z02-branch",
       "title": "分支结构：if 和 switch",
-      "days": 5,
       "lesson": "lessons/zero/02-branch.md",
       "problems": [
-        { "pid": "P5710", "title": "【深基3.例2】数的性质" },
-        { "pid": "P5711", "title": "【深基3.例3】闰年判断" },
-        { "pid": "P5712", "title": "【深基3.例4】Apples" },
-        { "pid": "P5713", "title": "【深基3.例5】洛谷团队系统" },
-        { "pid": "P5714", "title": "【深基3.例7】肥胖问题" },
-        { "pid": "P5715", "title": "【深基3.例8】三位数排序" },
-        { "pid": "P5716", "title": "【深基3.例9】月份天数" },
-        { "pid": "P1085", "title": "[NOIP2004 普及组] 不高兴的津津" },
-        { "pid": "P1909", "title": "[NOIP2016 普及组] 买铅笔" },
-        { "pid": "P1055", "title": "[NOIP2008 普及组] ISBN 号码" },
-        { "pid": "P1422", "title": "小玉家的电费" },
-        { "pid": "P1424", "title": "小鱼的航程（改进版）" },
-        { "pid": "P4414", "title": "[COCI2006-2007#2] ABC" }
+        {
+          "pid": "P5710",
+          "title": "【深基3.例2】数的性质",
+          "level": "basic"
+        },
+        {
+          "pid": "P5711",
+          "title": "【深基3.例3】闰年判断",
+          "level": "basic"
+        },
+        {
+          "pid": "P5712",
+          "title": "【深基3.例4】Apples",
+          "level": "basic"
+        },
+        {
+          "pid": "P5713",
+          "title": "【深基3.例5】洛谷团队系统",
+          "level": "basic"
+        },
+        {
+          "pid": "P5714",
+          "title": "【深基3.例7】肥胖问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P5716",
+          "title": "【深基3.例9】月份天数",
+          "level": "basic"
+        },
+        {
+          "pid": "P5715",
+          "title": "【深基3.例8】三位数排序",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1085",
+          "title": "[NOIP2004 普及组] 不高兴的津津",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1909",
+          "title": "[NOIP2016 普及组] 买铅笔",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1055",
+          "title": "[NOIP2008 普及组] ISBN 号码",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1422",
+          "title": "小玉家的电费",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1424",
+          "title": "小鱼的航程（改进版）",
+          "level": "advanced"
+        },
+        {
+          "pid": "P4414",
+          "title": "[COCI2006-2007#2] ABC",
+          "level": "advanced"
+        }
       ]
     },
     {
       "id": "z03-loop",
       "title": "循环结构：for 和 while",
-      "days": 6,
       "lesson": "lessons/zero/03-loop.md",
       "problems": [
-        { "pid": "P5718", "title": "【深基4.例2】找最小值" },
-        { "pid": "P5719", "title": "【深基4.例3】分类平均" },
-        { "pid": "P5720", "title": "【深基4.例4】一尺之棰" },
-        { "pid": "P5721", "title": "【深基4.例6】数字直角三角形" },
-        { "pid": "P5722", "title": "【深基4.例11】数列求和" },
-        { "pid": "P1980", "title": "[NOIP2013 普及组] 计数问题" },
-        { "pid": "P1035", "title": "[NOIP2002 普及组] 级数求和" },
-        { "pid": "P2669", "title": "[NOIP2015 普及组] 金币" },
-        { "pid": "P1423", "title": "小玉在游泳" },
-        { "pid": "P1307", "title": "[NOIP2011 普及组] 数字反转" },
-        { "pid": "P1720", "title": "月落乌啼算钱（斐波那契数列）" },
-        { "pid": "P5723", "title": "【深基4.例13】质数口袋" },
-        { "pid": "P1217", "title": "[USACO1.5] 回文质数" }
+        {
+          "pid": "P5718",
+          "title": "【深基4.例2】找最小值",
+          "level": "basic"
+        },
+        {
+          "pid": "P5719",
+          "title": "【深基4.例3】分类平均",
+          "level": "basic"
+        },
+        {
+          "pid": "P5720",
+          "title": "【深基4.例4】一尺之棰",
+          "level": "basic"
+        },
+        {
+          "pid": "P5721",
+          "title": "【深基4.例6】数字直角三角形",
+          "level": "basic"
+        },
+        {
+          "pid": "P5722",
+          "title": "【深基4.例11】数列求和",
+          "level": "basic"
+        },
+        {
+          "pid": "P1980",
+          "title": "[NOIP2013 普及组] 计数问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P1035",
+          "title": "[NOIP2002 普及组] 级数求和",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2669",
+          "title": "[NOIP2015 普及组] 金币",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1423",
+          "title": "小玉在游泳",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1307",
+          "title": "[NOIP2011 普及组] 数字反转",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1720",
+          "title": "月落乌啼算钱（斐波那契数列）",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5723",
+          "title": "【深基4.例13】质数口袋",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1217",
+          "title": "[USACO1.5] 回文质数 Prime Palindromes",
+          "level": "advanced"
+        }
       ]
     },
     {
       "id": "z04-array",
       "title": "数组：存一串数",
-      "days": 6,
       "lesson": "lessons/zero/04-array.md",
       "problems": [
-        { "pid": "P1428", "title": "小鱼比可爱" },
-        { "pid": "P1427", "title": "小鱼的数字游戏" },
-        { "pid": "P1046", "title": "[NOIP2005 普及组] 陶陶摘苹果" },
-        { "pid": "P5727", "title": "【深基5.例3】冰雹猜想" },
-        { "pid": "P1047", "title": "[NOIP2005 普及组] 校门外的树" },
-        { "pid": "P5728", "title": "【深基5.例5】旗鼓相当的对手" },
-        { "pid": "P1554", "title": "梦中的统计" },
-        { "pid": "P2550", "title": "[AHOI2001] 彩票摇奖" },
-        { "pid": "P5729", "title": "【深基5.例7】工艺品制作" },
-        { "pid": "P5730", "title": "【深基5.例10】显示屏" },
-        { "pid": "P2615", "title": "[NOIP2015 提高组] 神奇的幻方" }
+        {
+          "pid": "P1428",
+          "title": "小鱼比可爱",
+          "level": "basic"
+        },
+        {
+          "pid": "P1427",
+          "title": "小鱼的数字游戏",
+          "level": "basic"
+        },
+        {
+          "pid": "P1046",
+          "title": "[NOIP2005 普及组] 陶陶摘苹果",
+          "level": "basic"
+        },
+        {
+          "pid": "P5727",
+          "title": "【深基5.例3】冰雹猜想",
+          "level": "basic"
+        },
+        {
+          "pid": "P1047",
+          "title": "[NOIP2005 普及组] 校门外的树",
+          "level": "basic"
+        },
+        {
+          "pid": "P5728",
+          "title": "【深基5.例5】旗鼓相当的对手",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1554",
+          "title": "[USACO06DEC] 梦中的统计 Dream Counting B",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2550",
+          "title": "[AHOI2001] 彩票摇奖",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5729",
+          "title": "【深基5.例7】工艺品制作",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5730",
+          "title": "【深基5.例10】显示屏",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2615",
+          "title": "[NOIP2015 提高组] 神奇的幻方",
+          "level": "advanced"
+        }
       ]
     },
     {
       "id": "z05-string",
       "title": "字符串",
-      "days": 5,
       "lesson": "lessons/zero/05-string.md",
       "problems": [
-        { "pid": "P5733", "title": "【深基6.例1】自动修正" },
-        { "pid": "P1914", "title": "小书童——凯撒密码" },
-        { "pid": "P5015", "title": "[NOIP2018 普及组] 标题统计" },
-        { "pid": "P1765", "title": "手机" },
-        { "pid": "P1125", "title": "[NOIP2008 提高组] 笨小猴" },
-        { "pid": "P1957", "title": "口算练习题" },
-        { "pid": "P5734", "title": "【深基6.例6】文字处理软件" },
-        { "pid": "P3741", "title": "honoka的键盘" },
-        { "pid": "P1308", "title": "[NOIP2011 普及组] 统计单词数" }
+        {
+          "pid": "P5733",
+          "title": "【深基6.例1】自动修正",
+          "level": "basic"
+        },
+        {
+          "pid": "P1914",
+          "title": "小书童——凯撒密码",
+          "level": "basic"
+        },
+        {
+          "pid": "P5015",
+          "title": "[NOIP2018 普及组] 标题统计",
+          "level": "basic"
+        },
+        {
+          "pid": "P1765",
+          "title": "手机",
+          "level": "basic"
+        },
+        {
+          "pid": "P1125",
+          "title": "[NOIP2008 提高组] 笨小猴",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1957",
+          "title": "口算练习题",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5734",
+          "title": "【深基6.例6】文字处理软件",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3741",
+          "title": "小果的键盘",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1308",
+          "title": "[NOIP2011 普及组] 统计单词数",
+          "level": "advanced"
+        }
       ]
     },
     {
       "id": "z06-function",
       "title": "函数与结构体",
-      "days": 5,
       "lesson": "lessons/zero/06-function.md",
       "problems": [
-        { "pid": "P5735", "title": "【深基7.例1】距离函数" },
-        { "pid": "P5736", "title": "【深基7.例2】质数筛" },
-        { "pid": "P5737", "title": "【深基7.例3】闰年展示" },
-        { "pid": "P5738", "title": "【深基7.例4】歌唱比赛" },
-        { "pid": "P5739", "title": "【深基7.例7】计算阶乘" },
-        { "pid": "P5461", "title": "赦免战俘" },
-        { "pid": "P5740", "title": "【深基7.例9】最厉害的学生" },
-        { "pid": "P5741", "title": "【深基7.例10】旗鼓相当的对手 - 加强版" },
-        { "pid": "P5742", "title": "【深基7.例11】评等级" },
-        { "pid": "P1304", "title": "哥德巴赫猜想" }
+        {
+          "pid": "P5735",
+          "title": "【深基7.例1】距离函数",
+          "level": "basic"
+        },
+        {
+          "pid": "P5736",
+          "title": "【深基7.例2】质数筛",
+          "level": "basic"
+        },
+        {
+          "pid": "P5737",
+          "title": "【深基7.例3】闰年展示",
+          "level": "basic"
+        },
+        {
+          "pid": "P5738",
+          "title": "【深基7.例4】歌唱比赛",
+          "level": "basic"
+        },
+        {
+          "pid": "P5739",
+          "title": "【深基7.例7】计算阶乘",
+          "level": "basic"
+        },
+        {
+          "pid": "P5461",
+          "title": "赦免战俘",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5740",
+          "title": "【深基7.例9】最厉害的学生",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5741",
+          "title": "【深基7.例10】旗鼓相当的对手 - 加强版",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5742",
+          "title": "【深基7.例11】评等级",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1304",
+          "title": "哥德巴赫猜想",
+          "level": "advanced"
+        }
       ]
     },
     {
       "id": "z07-sort",
       "title": "排序入门",
-      "days": 4,
       "lesson": "lessons/zero/07-sort.md",
       "problems": [
-        { "pid": "P1271", "title": "【深基9.例1】选举学生会" },
-        { "pid": "P1177", "title": "【模板】排序" },
-        { "pid": "P1059", "title": "[NOIP2006 普及组] 明明的随机数" },
-        { "pid": "P1093", "title": "[NOIP2007 普及组] 奖学金" },
-        { "pid": "P1781", "title": "宇宙总统" },
-        { "pid": "P1068", "title": "[NOIP2009 普及组] 分数线划定" },
-        { "pid": "P1116", "title": "车厢重组" },
-        { "pid": "P1012", "title": "[NOIP1998 提高组] 拼数" }
+        {
+          "pid": "P1271",
+          "title": "【深基9.例1】选举学生会",
+          "level": "basic"
+        },
+        {
+          "pid": "P1177",
+          "title": "【模板】排序",
+          "level": "basic"
+        },
+        {
+          "pid": "P1059",
+          "title": "[NOIP2006 普及组] 明明的随机数",
+          "level": "basic"
+        },
+        {
+          "pid": "P1093",
+          "title": "[NOIP2007 普及组] 奖学金",
+          "level": "basic"
+        },
+        {
+          "pid": "P1781",
+          "title": "宇宙总统",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1068",
+          "title": "[NOIP2009 普及组] 分数线划定",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1116",
+          "title": "车厢重组",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1012",
+          "title": "[NOIP1998 提高组] 拼数",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "z08-enum",
+      "id": "z08-simulate",
+      "title": "模拟",
+      "lesson": "lessons/zero/08-simulate.md",
+      "problems": [
+        {
+          "pid": "P1003",
+          "title": "[NOIP2011 提高组] 铺地毯",
+          "level": "basic"
+        },
+        {
+          "pid": "P1089",
+          "title": "[NOIP2004 提高组] 津津的储蓄计划",
+          "level": "basic"
+        },
+        {
+          "pid": "P1042",
+          "title": "[NOIP2003 普及组] 乒乓球",
+          "level": "basic"
+        },
+        {
+          "pid": "P1563",
+          "title": "[NOIP2016 提高组] 玩具谜题",
+          "level": "basic"
+        },
+        {
+          "pid": "P1328",
+          "title": "[NOIP2014 提高组] 生活大爆炸版石头剪刀布",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1067",
+          "title": "[NOIP2009 普及组] 多项式输出",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1014",
+          "title": "[NOIP1999 普及组] Cantor 表",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1098",
+          "title": "[NOIP2007 提高组] 字符串的展开",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1205",
+          "title": "[USACO1.2] 方块转换 Transformations",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "z09-enum",
       "title": "暴力枚举",
-      "days": 4,
-      "lesson": "lessons/zero/08-enum.md",
+      "lesson": "lessons/zero/09-enum.md",
       "problems": [
-        { "pid": "P2241", "title": "统计方形（数据加强版）" },
-        { "pid": "P2089", "title": "烤鸡" },
-        { "pid": "P1618", "title": "三连击（升级版）" },
-        { "pid": "P3392", "title": "涂国旗" },
-        { "pid": "P3799", "title": "小 Y 拼木棒" }
+        {
+          "pid": "P2089",
+          "title": "烤鸡",
+          "level": "basic"
+        },
+        {
+          "pid": "P1618",
+          "title": "三连击（升级版）",
+          "level": "basic"
+        },
+        {
+          "pid": "P3392",
+          "title": "涂条纹",
+          "level": "basic"
+        },
+        {
+          "pid": "P2241",
+          "title": "统计方形（数据加强版）",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3799",
+          "title": "小 Y 拼木棒",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1149",
+          "title": "[NOIP2008 提高组] 火柴棒等式",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "z09-recursion",
+      "id": "z10-recursion",
       "title": "递推与递归",
-      "days": 6,
-      "lesson": "lessons/zero/09-recursion.md",
+      "lesson": "lessons/zero/10-recursion.md",
       "problems": [
-        { "pid": "P1002", "title": "[NOIP2002 普及组] 过河卒" },
-        { "pid": "P1028", "title": "[NOIP2001 普及组] 数的计算" },
-        { "pid": "P1464", "title": "Function" },
-        { "pid": "P1157", "title": "组合的输出" },
-        { "pid": "P1706", "title": "全排列问题" },
-        { "pid": "P1036", "title": "[NOIP2002 普及组] 选数" },
-        { "pid": "P2036", "title": "[COCI2008-2009#2] PERKET" },
-        { "pid": "P1928", "title": "外星密码" }
+        {
+          "pid": "P1028",
+          "title": "[NOIP2001 普及组] 数的计算",
+          "level": "basic"
+        },
+        {
+          "pid": "P1002",
+          "title": "[NOIP2002 普及组] 过河卒",
+          "level": "basic"
+        },
+        {
+          "pid": "P1157",
+          "title": "组合的输出",
+          "level": "basic"
+        },
+        {
+          "pid": "P1706",
+          "title": "全排列问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P1464",
+          "title": "[PacNW 1999] Function",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1036",
+          "title": "[NOIP2002 普及组] 选数",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2036",
+          "title": "[COCI2008-2009#2] PERKET",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1928",
+          "title": "外星密码",
+          "level": "advanced"
+        }
       ]
     }
   ]

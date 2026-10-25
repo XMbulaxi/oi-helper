@@ -1,177 +1,629 @@
 {
   "id": "puji",
-  "name": "普及组路线",
-  "description": "已经会基本语法，目标是 CSP-J 和 NOIP 普及组常考的算法与数据结构。",
+  "name": "普及组（CSP-J）",
+  "description": "已经会基本语法，目标是 CSP-J 和普及组常考的算法与数据结构。",
+  "minutes": {
+    "basic": 40,
+    "advanced": 70,
+    "lesson": 60
+  },
   "units": [
     {
       "id": "p01-bignum",
       "title": "高精度",
-      "days": 4,
       "lesson": "lessons/puji/01-bignum.md",
       "problems": [
-        { "pid": "P1601", "title": "A+B Problem（高精）" },
-        { "pid": "P1303", "title": "A*B Problem" },
-        { "pid": "P1009", "title": "[NOIP1998 普及组] 阶乘之和" },
-        { "pid": "P1255", "title": "数楼梯" }
+        {
+          "pid": "P1601",
+          "title": "高精度加法",
+          "level": "basic"
+        },
+        {
+          "pid": "P1303",
+          "title": "A*B Problem",
+          "level": "basic"
+        },
+        {
+          "pid": "P1009",
+          "title": "[NOIP1998 普及组] 阶乘之和",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1255",
+          "title": "数楼梯",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1480",
+          "title": "A/B Problem（高精度除法Ⅰ）",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1045",
+          "title": "[NOIP2003 普及组] 麦森数",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p02-binary",
-      "title": "排序进阶与二分",
-      "days": 6,
-      "lesson": "lessons/puji/02-binary.md",
+      "id": "p02-stl",
+      "title": "STL 常用容器",
+      "lesson": "lessons/puji/02-stl.md",
       "problems": [
-        { "pid": "P1923", "title": "【深基9.例4】求第 k 小的数" },
-        { "pid": "P5143", "title": "攀爬者" },
-        { "pid": "P2249", "title": "【深基13.例1】查找" },
-        { "pid": "P1102", "title": "A-B 数对" },
-        { "pid": "P1873", "title": "[COCI 2011/2012 #5] EKO / 砍树" },
-        { "pid": "P1024", "title": "[NOIP2001 提高组] 一元三次方程求解" },
-        { "pid": "P2678", "title": "[NOIP2015 提高组] 跳石头" },
-        { "pid": "P1182", "title": "数列分段 Section II" },
-        { "pid": "P3853", "title": "[TJOI2007] 路标设置" }
+        {
+          "pid": "P3613",
+          "title": "【深基15.例2】寄包柜",
+          "level": "basic"
+        },
+        {
+          "pid": "P4305",
+          "title": "[JLOI2011] 不重复数字",
+          "level": "basic"
+        },
+        {
+          "pid": "P5250",
+          "title": "【深基17.例5】木材仓库",
+          "level": "basic"
+        },
+        {
+          "pid": "P5266",
+          "title": "【深基17.例6】学籍管理",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1918",
+          "title": "保龄球",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p03-greedy",
+      "id": "p03-binary",
+      "title": "二分查找与二分答案",
+      "lesson": "lessons/puji/03-binary.md",
+      "problems": [
+        {
+          "pid": "P2249",
+          "title": "【深基13.例1】查找",
+          "level": "basic"
+        },
+        {
+          "pid": "P1102",
+          "title": "A-B 数对",
+          "level": "basic"
+        },
+        {
+          "pid": "P1873",
+          "title": "[COCI 2011/2012 #5] EKO / 砍树",
+          "level": "basic"
+        },
+        {
+          "pid": "P1923",
+          "title": "【深基9.例4】求第 k 小的数",
+          "level": "basic"
+        },
+        {
+          "pid": "P5143",
+          "title": "攀爬者",
+          "level": "basic"
+        },
+        {
+          "pid": "P1024",
+          "title": "[NOIP2001 提高组] 一元三次方程求解",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2678",
+          "title": "[NOIP2015 提高组] 跳石头",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1182",
+          "title": "数列分段 Section II",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3853",
+          "title": "[TJOI2007] 路标设置",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "p04-greedy",
       "title": "贪心",
-      "days": 5,
-      "lesson": "lessons/puji/03-greedy.md",
+      "lesson": "lessons/puji/04-greedy.md",
       "problems": [
-        { "pid": "P2240", "title": "【深基12.例1】部分背包问题" },
-        { "pid": "P1223", "title": "排队接水" },
-        { "pid": "P1803", "title": "凌乱的yyy / 线段覆盖" },
-        { "pid": "P1090", "title": "[NOIP2004 提高组] 合并果子" },
-        { "pid": "P3817", "title": "小A的糖果" },
-        { "pid": "P1094", "title": "[NOIP2007 普及组] 纪念品分组" },
-        { "pid": "P1478", "title": "陶陶摘苹果（升级版）" },
-        { "pid": "P5019", "title": "[NOIP2018 提高组] 铺设道路" },
-        { "pid": "P1106", "title": "删数问题" }
+        {
+          "pid": "P2240",
+          "title": "【深基12.例1】部分背包问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P1223",
+          "title": "排队接水",
+          "level": "basic"
+        },
+        {
+          "pid": "P1803",
+          "title": "凌乱的yyy / 线段覆盖",
+          "level": "basic"
+        },
+        {
+          "pid": "P1090",
+          "title": "[NOIP2004 提高组] 合并果子",
+          "level": "basic"
+        },
+        {
+          "pid": "P3817",
+          "title": "小A的糖果",
+          "level": "basic"
+        },
+        {
+          "pid": "P1094",
+          "title": "[NOIP2007 普及组] 纪念品分组",
+          "level": "basic"
+        },
+        {
+          "pid": "P1478",
+          "title": "陶陶摘苹果（升级版）",
+          "level": "advanced"
+        },
+        {
+          "pid": "P5019",
+          "title": "[NOIP2018 提高组] 铺设道路",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1106",
+          "title": "删数问题",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1080",
+          "title": "[NOIP2012 提高组] 国王游戏",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p04-prefix",
+      "id": "p05-prefix",
       "title": "前缀和与差分",
-      "days": 3,
-      "lesson": "lessons/puji/04-prefix.md",
+      "lesson": "lessons/puji/05-prefix.md",
       "problems": [
-        { "pid": "P8218", "title": "【深进1.例1】求区间和" },
-        { "pid": "P2367", "title": "语文成绩" },
-        { "pid": "P3397", "title": "地毯" },
-        { "pid": "P1115", "title": "最大子段和" },
-        { "pid": "P1719", "title": "最大加权矩形" }
+        {
+          "pid": "P8218",
+          "title": "【深进1.例1】求区间和",
+          "level": "basic"
+        },
+        {
+          "pid": "P2367",
+          "title": "语文成绩",
+          "level": "basic"
+        },
+        {
+          "pid": "P3397",
+          "title": "地毯",
+          "level": "basic"
+        },
+        {
+          "pid": "P1115",
+          "title": "最大子段和",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1719",
+          "title": "最大加权矩形",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3406",
+          "title": "海底高铁",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2004",
+          "title": "领地选择",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p05-stack-queue",
-      "title": "栈与队列",
-      "days": 4,
-      "lesson": "lessons/puji/05-stack-queue.md",
+      "id": "p06-stack-queue",
+      "title": "栈、队列与链表",
+      "lesson": "lessons/puji/06-stack-queue.md",
       "problems": [
-        { "pid": "P1449", "title": "后缀表达式" },
-        { "pid": "P4387", "title": "【深基15.习9】验证栈序列" },
-        { "pid": "P1044", "title": "[NOIP2003 普及组] 栈" },
-        { "pid": "P1996", "title": "约瑟夫问题" },
-        { "pid": "P1540", "title": "[NOIP2010 提高组] 机器翻译" },
-        { "pid": "P1160", "title": "队列安排" }
+        {
+          "pid": "P1739",
+          "title": "表达式括号匹配",
+          "level": "basic"
+        },
+        {
+          "pid": "P1449",
+          "title": "后缀表达式",
+          "level": "basic"
+        },
+        {
+          "pid": "P4387",
+          "title": "【深基15.习9】验证栈序列",
+          "level": "basic"
+        },
+        {
+          "pid": "P1996",
+          "title": "约瑟夫问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P1540",
+          "title": "[NOIP2010 提高组] 机器翻译",
+          "level": "basic"
+        },
+        {
+          "pid": "P1044",
+          "title": "[NOIP2003 普及组] 栈",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1160",
+          "title": "队列安排",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1981",
+          "title": "[NOIP2013 普及组] 表达式求值",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p06-search",
+      "id": "p07-search",
       "title": "搜索：DFS 与 BFS",
-      "days": 7,
-      "lesson": "lessons/puji/06-search.md",
+      "lesson": "lessons/puji/07-search.md",
       "problems": [
-        { "pid": "P1219", "title": "[USACO1.5] 八皇后 Checker Challenge" },
-        { "pid": "P1605", "title": "迷宫" },
-        { "pid": "P1596", "title": "[USACO10OCT] Lake Counting S" },
-        { "pid": "P1162", "title": "填涂颜色" },
-        { "pid": "P1135", "title": "奇怪的电梯" },
-        { "pid": "P1443", "title": "马的遍历" },
-        { "pid": "P1141", "title": "01迷宫" },
-        { "pid": "P1088", "title": "[NOIP2004 普及组] 火星人" }
+        {
+          "pid": "P1605",
+          "title": "迷宫",
+          "level": "basic"
+        },
+        {
+          "pid": "P1596",
+          "title": "[USACO10OCT] Lake Counting S",
+          "level": "basic"
+        },
+        {
+          "pid": "P1162",
+          "title": "填涂颜色",
+          "level": "basic"
+        },
+        {
+          "pid": "P1135",
+          "title": "奇怪的电梯",
+          "level": "basic"
+        },
+        {
+          "pid": "P1443",
+          "title": "马的遍历",
+          "level": "basic"
+        },
+        {
+          "pid": "P1219",
+          "title": "[USACO1.5] 八皇后 Checker Challenge",
+          "level": "basic"
+        },
+        {
+          "pid": "P1141",
+          "title": "01迷宫",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1088",
+          "title": "[NOIP2004 普及组] 火星人",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1101",
+          "title": "单词方阵",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1025",
+          "title": "[NOIP 2001 提高组] 数的划分",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p07-math",
+      "id": "p08-math",
       "title": "数学基础：GCD、素数、快速幂",
-      "days": 4,
-      "lesson": "lessons/puji/07-math.md",
+      "lesson": "lessons/puji/08-math.md",
       "problems": [
-        { "pid": "P1888", "title": "三角函数" },
-        { "pid": "P1075", "title": "[NOIP2012 普及组] 质因数分解" },
-        { "pid": "P1029", "title": "[NOIP2001 普及组] 最大公约数和最小公倍数问题" },
-        { "pid": "P3383", "title": "【模板】线性筛素数" },
-        { "pid": "P1226", "title": "【模板】快速幂" }
+        {
+          "pid": "P1888",
+          "title": "三角函数",
+          "level": "basic"
+        },
+        {
+          "pid": "P1075",
+          "title": "[NOIP2012 普及组] 质因数分解",
+          "level": "basic"
+        },
+        {
+          "pid": "P1029",
+          "title": "[NOIP2001 普及组] 最大公约数和最小公倍数问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P3383",
+          "title": "【模板】线性筛素数",
+          "level": "basic"
+        },
+        {
+          "pid": "P1226",
+          "title": "【模板】快速幂",
+          "level": "basic"
+        },
+        {
+          "pid": "P1835",
+          "title": "素数密度",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1072",
+          "title": "[NOIP2009 提高组] Hankson 的趣味题",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p08-dp",
+      "id": "p09-dp",
       "title": "动态规划入门",
-      "days": 7,
-      "lesson": "lessons/puji/08-dp.md",
+      "lesson": "lessons/puji/09-dp.md",
       "problems": [
-        { "pid": "P1216", "title": "[USACO1.5] [IOI1994] 数字三角形 Number Triangles" },
-        { "pid": "P1434", "title": "[SHOI2002] 滑雪" },
-        { "pid": "P1020", "title": "[NOIP1999 提高组] 导弹拦截" },
-        { "pid": "P1439", "title": "【模板】最长公共子序列" },
-        { "pid": "P1164", "title": "小A点菜" }
+        {
+          "pid": "P1216",
+          "title": "[IOI 1994 / USACO1.5] 数字三角形 Number Triangles",
+          "level": "basic"
+        },
+        {
+          "pid": "P1434",
+          "title": "[SHOI2002] 滑雪",
+          "level": "basic"
+        },
+        {
+          "pid": "P1164",
+          "title": "小A点菜",
+          "level": "basic"
+        },
+        {
+          "pid": "P2196",
+          "title": "[NOIP1996 提高组] 挖地雷",
+          "level": "basic"
+        },
+        {
+          "pid": "P1020",
+          "title": "[NOIP1999 提高组] 导弹拦截",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1439",
+          "title": "两个排列的最长公共子序列",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1091",
+          "title": "[NOIP2004 提高组] 合唱队形",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1095",
+          "title": "[NOIP2007 普及组] 守望者的逃离",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1280",
+          "title": "[CHCI 2002 National Competition #2 Juniors] 尼克的任务",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p09-knapsack",
+      "id": "p10-knapsack",
       "title": "背包问题",
-      "days": 5,
-      "lesson": "lessons/puji/09-knapsack.md",
+      "lesson": "lessons/puji/10-knapsack.md",
       "problems": [
-        { "pid": "P1048", "title": "[NOIP2005 普及组] 采药" },
-        { "pid": "P1049", "title": "[NOIP2001 普及组] 装箱问题" },
-        { "pid": "P1060", "title": "[NOIP2006 普及组] 开心的金明" },
-        { "pid": "P1616", "title": "疯狂的采药" },
-        { "pid": "P1802", "title": "5 倍经验日" }
+        {
+          "pid": "P1048",
+          "title": "[NOIP2005 普及组] 采药",
+          "level": "basic"
+        },
+        {
+          "pid": "P1049",
+          "title": "[NOIP2001 普及组] 装箱问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P1060",
+          "title": "[NOIP2006 普及组] 开心的金明",
+          "level": "basic"
+        },
+        {
+          "pid": "P1616",
+          "title": "疯狂的采药",
+          "level": "basic"
+        },
+        {
+          "pid": "P1802",
+          "title": "5 倍经验日",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1855",
+          "title": "榨取kkksc03",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1757",
+          "title": "通天之分组背包",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1064",
+          "title": "[NOIP2006 提高组] 金明的预算方案",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p10-tree",
+      "id": "p11-tree",
       "title": "树与二叉树",
-      "days": 3,
-      "lesson": "lessons/puji/10-tree.md",
+      "lesson": "lessons/puji/11-tree.md",
       "problems": [
-        { "pid": "P4913", "title": "【深基16.例3】二叉树深度" },
-        { "pid": "P1305", "title": "新二叉树" },
-        { "pid": "P1030", "title": "[NOIP2001 普及组] 求先序排列" }
+        {
+          "pid": "P4913",
+          "title": "【深基16.例3】二叉树深度",
+          "level": "basic"
+        },
+        {
+          "pid": "P1305",
+          "title": "新二叉树",
+          "level": "basic"
+        },
+        {
+          "pid": "P1030",
+          "title": "[NOIP2001 普及组] 求先序排列",
+          "level": "basic"
+        },
+        {
+          "pid": "P1087",
+          "title": "[NOIP2004 普及组] FBI 树",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1229",
+          "title": "遍历问题",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p11-graph",
+      "id": "p12-graph",
       "title": "图的存储与遍历",
-      "days": 4,
-      "lesson": "lessons/puji/11-graph.md",
+      "lesson": "lessons/puji/12-graph.md",
       "problems": [
-        { "pid": "P5318", "title": "【深基18.例3】查找文献" },
-        { "pid": "P3916", "title": "图的遍历" },
-        { "pid": "P1113", "title": "杂务" }
+        {
+          "pid": "P5318",
+          "title": "【深基18.例3】查找文献",
+          "level": "basic"
+        },
+        {
+          "pid": "P3916",
+          "title": "图的遍历",
+          "level": "basic"
+        },
+        {
+          "pid": "P1113",
+          "title": "[USACO02FEB] 杂务",
+          "level": "basic"
+        },
+        {
+          "pid": "P4017",
+          "title": "最大食物链计数",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1807",
+          "title": "最长路",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p12-dsu-mst",
+      "id": "p13-dsu-mst",
       "title": "并查集与最小生成树",
-      "days": 4,
-      "lesson": "lessons/puji/12-dsu-mst.md",
+      "lesson": "lessons/puji/13-dsu-mst.md",
       "problems": [
-        { "pid": "P3367", "title": "【模板】并查集" },
-        { "pid": "P1551", "title": "亲戚" },
-        { "pid": "P3366", "title": "【模板】最小生成树" }
+        {
+          "pid": "P3367",
+          "title": "【模板】并查集",
+          "level": "basic"
+        },
+        {
+          "pid": "P1551",
+          "title": "亲戚",
+          "level": "basic"
+        },
+        {
+          "pid": "P3366",
+          "title": "【模板】最小生成树",
+          "level": "basic"
+        },
+        {
+          "pid": "P1111",
+          "title": "修复公路",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1194",
+          "title": "买礼物",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1546",
+          "title": "[USACO3.1] 最短网络 Agri-Net",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2872",
+          "title": "[USACO07DEC] Building Roads S",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1991",
+          "title": "无线通讯网",
+          "level": "advanced"
+        }
       ]
     },
     {
-      "id": "p13-shortest-path",
+      "id": "p14-shortest-path",
       "title": "最短路",
-      "days": 4,
-      "lesson": "lessons/puji/13-shortest-path.md",
+      "lesson": "lessons/puji/14-shortest-path.md",
       "problems": [
-        { "pid": "P3371", "title": "【模板】单源最短路径（弱化版）" },
-        { "pid": "P4779", "title": "【模板】单源最短路径（标准版）" }
+        {
+          "pid": "P3371",
+          "title": "【模板】单源最短路径（弱化版）",
+          "level": "basic"
+        },
+        {
+          "pid": "P4779",
+          "title": "【模板】单源最短路径（标准版）",
+          "level": "basic"
+        },
+        {
+          "pid": "P1339",
+          "title": "[USACO09OCT] Heat Wave G",
+          "level": "basic"
+        },
+        {
+          "pid": "P1144",
+          "title": "最短路计数",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1119",
+          "title": "灾后重建",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1342",
+          "title": "[CERC1998] 请柬",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1462",
+          "title": "通往奥格瑞玛的道路",
+          "level": "advanced"
+        }
       ]
     }
   ]

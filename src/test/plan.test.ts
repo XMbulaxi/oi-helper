@@ -4,54 +4,80 @@ import * as fs from "fs";
 import * as path from "path";
 import { parsePassed } from "../luogu";
 import {
-  Route,
-  currentUnitIndex,
+  Stage,
+  buildTasks,
   daysBetween,
-  expectedUnitIndex,
-  nextUnfinished,
+  estimateExamDate,
+  forecast,
+  isValidDate,
+  pickTasks,
+  simulate,
+  stagesFor,
   todayPlan,
 } from "../plan";
 
-const route: Route = {
-  id: "t",
-  name: "测试",
-  description: "",
-  units: [
-    { id: "a", title: "A", days: 2, lesson: "", problems: [{ pid: "P1", title: "" }, { pid: "P2", title: "" }] },
-    { id: "b", title: "B", days: 3, lesson: "", problems: [{ pid: "P3", title: "" }, { pid: "P4", title: "" }] },
-  ],
-};
+const stage = (id: string, units: string[][]): Stage => ({
+  id, name: id, description: "", minutes: { basic: 30, advanced: 60, lesson: 20 },
+  units: units.map((ps, i) => ({
+    id: `${id}${i}`, title: `${id}${i}`, lesson: "",
+    problems: ps.map((pid) => ({ pid, title: "", level: pid.endsWith("a") ? "advanced" : "basic" } as const)),
+  })),
+});
+const zero = stage("zero", [["P1", "P2a"], ["P3", "P4a"]]);
+const puji = stage("puji", [["P5"]]);
+const tigao = stage("tigao", [["P6"]]);
+const all = [zero, puji, tigao];
 
-test("daysBetween counts whole days across months", () => {
+test("dates", () => {
   assert.equal(daysBetween("2026-01-30", "2026-02-02"), 3);
-  assert.equal(daysBetween("2026-03-01", "2026-03-01"), 0);
+  assert.ok(isValidDate("2026-02-28"));
+  assert.ok(!isValidDate("2026-02-30"));
+  // Last Saturday of October / November.
+  assert.equal(estimateExamDate("CSP-S", "2026-10-01"), "2026-10-31");
+  assert.equal(estimateExamDate("NOIP", "2026-10-25"), "2026-11-28");
+  assert.equal(estimateExamDate("CSP-J", "2026-11-05"), "2027-10-30");
 });
 
-test("current unit is the first one with unfinished problems", () => {
-  assert.equal(currentUnitIndex(route, new Set()), 0);
-  assert.equal(currentUnitIndex(route, new Set(["P1", "P2"])), 1);
-  assert.equal(currentUnitIndex(route, new Set(["P1", "P2", "P3", "P4"])), 2);
+test("stages run from the start stage to what the exam needs", () => {
+  assert.deepEqual(stagesFor(all, "zero", "CSP-J").map((s) => s.id), ["zero", "puji"]);
+  assert.deepEqual(stagesFor(all, "puji", "NOIP").map((s) => s.id), ["puji", "tigao"]);
+  assert.deepEqual(stagesFor(all, "tigao", "CSP-J").map((s) => s.id), ["tigao"]);
+  assert.deepEqual(stagesFor(all, "zero", "none").map((s) => s.id), ["zero", "puji", "tigao"]);
 });
 
-test("expected unit follows suggested days", () => {
-  assert.equal(expectedUnitIndex(route, "2026-01-01", "2026-01-01"), 0);
-  assert.equal(expectedUnitIndex(route, "2026-01-01", "2026-01-02"), 0);
-  assert.equal(expectedUnitIndex(route, "2026-01-01", "2026-01-03"), 1);
-  assert.equal(expectedUnitIndex(route, "2026-01-01", "2026-01-06"), 2);
+test("tasks: lesson, then basic, then advanced, per unit", () => {
+  const ids = buildTasks([zero]).map((t) => t.id);
+  assert.deepEqual(ids, ["lesson:zero0", "P1", "P2a", "lesson:zero1", "P3", "P4a"]);
 });
 
-test("next unfinished skips done and excluded problems, across units", () => {
-  assert.deepEqual(nextUnfinished(route, new Set(["P1"]), 2), ["P2", "P3"]);
-  assert.deepEqual(nextUnfinished(route, new Set(["P1"]), 2, ["P2"]), ["P3", "P4"]);
+test("simulate spreads tasks over days by minutes", () => {
+  const tasks = buildTasks([zero]); // 20,30,60,20,30,60
+  // 2026-01-05 is a Monday.
+  const days = simulate(tasks, { weekday: 60, weekend: 0 }, "2026-01-05");
+  assert.deepEqual(days, ["2026-01-05", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-07", "2026-01-08"]);
 });
 
-test("today's plan stays fixed during the day and renews the next day", () => {
-  const first = todayPlan(route, new Set(), 2, "2026-01-01", undefined);
-  assert.deepEqual(first.pids, ["P1", "P2"]);
-  const same = todayPlan(route, new Set(["P1"]), 2, "2026-01-01", first);
-  assert.deepEqual(same.pids, ["P1", "P2"]);
-  const next = todayPlan(route, new Set(["P1", "P2"]), 2, "2026-01-02", first);
-  assert.deepEqual(next.pids, ["P3", "P4"]);
+test("forecast picks a mode from the time left before the exam", () => {
+  const tasks = buildTasks([zero]); // basic 100 min, all 220 min
+  const sch = { weekday: 60, weekend: 60 };
+  assert.equal(forecast(tasks, new Set(), sch, "2026-01-05", "2026-01-10").mode, "full"); // 300 min
+  assert.equal(forecast(tasks, new Set(), sch, "2026-01-05", "2026-01-07").mode, "basicFirst"); // 120 min
+  const tight = forecast(tasks, new Set(), sch, "2026-01-05", "2026-01-06"); // 60 min
+  assert.equal(tight.mode, "tight");
+  assert.equal(tight.reachUnitId, "zero0");
+  assert.equal(forecast(tasks, new Set(), sch, "2026-01-05").mode, "full");
+});
+
+test("today's list fills the day's minutes and stays fixed during the day", () => {
+  const tasks = buildTasks([zero]);
+  const first = todayPlan(tasks, new Set(), "full", 60, "2026-01-05", undefined);
+  assert.deepEqual(first.ids, ["lesson:zero0", "P1"]);
+  const same = todayPlan(tasks, new Set(["P1"]), "full", 60, "2026-01-05", first);
+  assert.deepEqual(same.ids, first.ids);
+  const basicFirst = todayPlan(tasks, new Set(["lesson:zero0", "P1"]), "basicFirst", 60, "2026-01-06", first);
+  assert.deepEqual(basicFirst.ids, ["lesson:zero1", "P3"]);
+  // A task longer than the budget is still picked alone.
+  assert.deepEqual(pickTasks(tasks.filter((t) => t.id === "P2a"), 10), ["P2a"]);
 });
 
 test("parsePassed reads both Luogu formats", () => {
@@ -63,14 +89,16 @@ test("parsePassed reads both Luogu formats", () => {
 test("bundled content is valid", () => {
   const root = path.join(__dirname, "..", "..", "content");
   const seen = new Map<string, string>();
-  for (const f of ["zero.json", "puji.json"]) {
-    const r = JSON.parse(fs.readFileSync(path.join(root, "routes", f), "utf8")) as Route;
+  for (const f of ["zero.json", "puji.json", "tigao.json"]) {
+    const r = JSON.parse(fs.readFileSync(path.join(root, "routes", f), "utf8")) as Stage;
     assert.ok(r.units.length > 0, f);
     for (const u of r.units) {
       assert.ok(fs.existsSync(path.join(root, u.lesson)), `missing lesson ${u.lesson}`);
-      assert.ok(u.days > 0 && u.problems.length > 0, u.id);
+      assert.ok(u.problems.length > 0, u.id);
+      assert.ok(u.problems.some((p) => p.level === "basic"), `${u.id} has no basic problem`);
       for (const p of u.problems) {
         assert.match(p.pid, /^P\d{4,5}$/, `${u.id} ${p.pid}`);
+        assert.ok(p.level === "basic" || p.level === "advanced", `${p.pid} level`);
         assert.ok(!seen.has(p.pid), `${p.pid} appears in both ${seen.get(p.pid)} and ${u.id}`);
         seen.set(p.pid, u.id);
       }

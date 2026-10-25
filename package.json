@@ -1,8 +1,8 @@
 {
   "name": "oi-helper",
   "displayName": "OI 学习助手",
-  "description": "给机房学弟学妹的 OI 学习路线：每日题单、知识点讲解、洛谷进度同步。",
-  "version": "0.1.2",
+  "description": "给机房学弟学妹的 OI 工具：学习助手（从零基础到 NOIP 的学习路线、按考试排计划、讲解、洛谷同步）和比赛助手（一键运行测试点、导入洛谷样例、模拟赛计时）。",
+  "version": "0.5.0",
   "publisher": "oi-helper",
   "license": "MIT",
   "engines": {
@@ -22,70 +22,247 @@
           "id": "oiHelper",
           "title": "OI 学习助手",
           "icon": "media/icon.svg"
+        },
+        {
+          "id": "oiContest",
+          "title": "OI 比赛助手",
+          "icon": "media/contest.svg"
         }
       ]
     },
     "views": {
       "oiHelper": [
         {
-          "id": "oiHelper.today",
-          "name": "今日题单"
-        },
+          "type": "webview",
+          "id": "oiHelper.home",
+          "name": "学习助手"
+        }
+      ],
+      "oiContest": [
         {
-          "id": "oiHelper.route",
-          "name": "学习路线"
+          "type": "webview",
+          "id": "oiContest.cases",
+          "name": "测试点"
         }
       ]
     },
-    "viewsWelcome": [
+    "commands": [
       {
-        "view": "oiHelper.today",
-        "contents": "还没有选择学习路线。\n[选择学习路线](command:oiHelper.selectRoute)"
+        "command": "oiHelper.selectRoute",
+        "title": "选择起点阶段",
+        "category": "OI 学习助手",
+        "icon": "$(list-tree)"
       },
       {
-        "view": "oiHelper.route",
-        "contents": "选好路线后，这里会列出所有单元、讲解和题目。\n[选择学习路线](command:oiHelper.selectRoute)"
+        "command": "oiHelper.setGoal",
+        "title": "设置目标考试和每天学习时间",
+        "category": "OI 学习助手",
+        "icon": "$(calendar)"
+      },
+      {
+        "command": "oiHelper.sync",
+        "title": "同步洛谷进度",
+        "category": "OI 学习助手",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "oiHelper.setLuoguUser",
+        "title": "设置洛谷账号",
+        "category": "OI 学习助手",
+        "icon": "$(account)"
+      },
+      {
+        "command": "oiHelper.setLuoguCookie",
+        "title": "设置洛谷 Cookie",
+        "category": "OI 学习助手",
+        "icon": "$(key)"
+      },
+      {
+        "command": "oiHelper.moreToday",
+        "title": "再来一题",
+        "category": "OI 学习助手",
+        "icon": "$(add)"
+      },
+      {
+        "command": "oiHelper.openProblem",
+        "title": "在洛谷打开",
+        "category": "OI 学习助手",
+        "icon": "$(link-external)"
+      },
+      {
+        "command": "oiHelper.startCoding",
+        "title": "新建代码文件",
+        "category": "OI 学习助手",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "oiHelper.toggleDone",
+        "title": "标记完成 / 取消",
+        "category": "OI 学习助手",
+        "icon": "$(check)"
+      },
+      {
+        "command": "oiHelper.openLesson",
+        "title": "打开知识点讲解",
+        "category": "OI 学习助手",
+        "icon": "$(book)"
+      },
+      {
+        "command": "oiHelper.checkContent",
+        "title": "用洛谷核对题目",
+        "category": "OI 学习助手",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "oiHelper.runTests",
+        "title": "运行测试点",
+        "category": "OI 比赛助手",
+        "icon": "$(play)"
+      },
+      {
+        "command": "oiHelper.pickTestFolder",
+        "title": "选择测试点文件夹",
+        "category": "OI 比赛助手",
+        "icon": "$(folder)"
+      },
+      {
+        "command": "oiHelper.contestHelp",
+        "title": "比赛助手怎么用",
+        "category": "OI 比赛助手",
+        "icon": "$(question)"
+      },
+      {
+        "command": "oiHelper.startContest",
+        "title": "开始模拟赛计时",
+        "category": "OI 比赛助手",
+        "icon": "$(watch)"
+      },
+      {
+        "command": "oiHelper.stopContest",
+        "title": "结束模拟赛计时",
+        "category": "OI 比赛助手"
       }
-    ],
-    "commands": [
-      { "command": "oiHelper.selectRoute", "title": "选择学习路线", "category": "OI 学习助手", "icon": "$(list-tree)" },
-      { "command": "oiHelper.sync", "title": "同步洛谷进度", "category": "OI 学习助手", "icon": "$(sync)" },
-      { "command": "oiHelper.setLuoguUser", "title": "设置洛谷账号", "category": "OI 学习助手", "icon": "$(account)" },
-      { "command": "oiHelper.setLuoguCookie", "title": "设置洛谷 Cookie", "category": "OI 学习助手", "icon": "$(key)" },
-      { "command": "oiHelper.moreToday", "title": "再来一题", "category": "OI 学习助手", "icon": "$(add)" },
-      { "command": "oiHelper.openProblem", "title": "在洛谷打开", "category": "OI 学习助手", "icon": "$(link-external)" },
-      { "command": "oiHelper.startCoding", "title": "新建代码文件", "category": "OI 学习助手", "icon": "$(file-code)" },
-      { "command": "oiHelper.toggleDone", "title": "标记完成 / 取消", "category": "OI 学习助手", "icon": "$(check)" },
-      { "command": "oiHelper.openLesson", "title": "打开知识点讲解", "category": "OI 学习助手", "icon": "$(book)" }
     ],
     "menus": {
       "view/title": [
-        { "command": "oiHelper.sync", "when": "view == oiHelper.today", "group": "navigation@1" },
-        { "command": "oiHelper.moreToday", "when": "view == oiHelper.today", "group": "navigation@2" },
-        { "command": "oiHelper.selectRoute", "when": "view == oiHelper.route", "group": "navigation@1" },
-        { "command": "oiHelper.setLuoguUser", "when": "view == oiHelper.route", "group": "navigation@2" }
-      ],
-      "view/item/context": [
-        { "command": "oiHelper.startCoding", "when": "viewItem =~ /^problem/", "group": "inline@1" },
-        { "command": "oiHelper.toggleDone", "when": "viewItem =~ /^problem/", "group": "inline@2" },
-        { "command": "oiHelper.openLesson", "when": "viewItem == unit", "group": "inline@1" }
+        {
+          "command": "oiHelper.sync",
+          "when": "view == oiHelper.home",
+          "group": "navigation@1"
+        },
+        {
+          "command": "oiHelper.setGoal",
+          "when": "view == oiHelper.home",
+          "group": "navigation@2"
+        },
+        {
+          "command": "oiHelper.selectRoute",
+          "when": "view == oiHelper.home",
+          "group": "more@1"
+        },
+        {
+          "command": "oiHelper.setLuoguUser",
+          "when": "view == oiHelper.home",
+          "group": "more@2"
+        },
+        {
+          "command": "oiHelper.setLuoguCookie",
+          "when": "view == oiHelper.home",
+          "group": "more@3"
+        },
+        {
+          "command": "oiHelper.checkContent",
+          "when": "view == oiHelper.home",
+          "group": "more@4"
+        },
+        {
+          "command": "oiHelper.startContest",
+          "when": "view == oiContest.cases",
+          "group": "navigation@1"
+        },
+        {
+          "command": "oiHelper.contestHelp",
+          "when": "view == oiContest.cases",
+          "group": "navigation@2"
+        }
       ],
       "commandPalette": [
-        { "command": "oiHelper.openProblem", "when": "false" },
-        { "command": "oiHelper.startCoding", "when": "false" },
-        { "command": "oiHelper.toggleDone", "when": "false" },
-        { "command": "oiHelper.openLesson", "when": "false" }
+        {
+          "command": "oiHelper.openProblem",
+          "when": "false"
+        },
+        {
+          "command": "oiHelper.startCoding",
+          "when": "false"
+        },
+        {
+          "command": "oiHelper.toggleDone",
+          "when": "false"
+        },
+        {
+          "command": "oiHelper.openLesson",
+          "when": "false"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "oiHelper.runTests",
+          "when": "resourceExtname =~ /^\\.(cpp|cc|cxx)$/i",
+          "group": "navigation@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "oiHelper.runTests",
+          "when": "resourceExtname =~ /^\\.(cpp|cc|cxx)$/i",
+          "group": "oiHelper@1"
+        },
+        {
+          "command": "oiHelper.pickTestFolder",
+          "when": "resourceExtname =~ /^\\.(cpp|cc|cxx)$/i",
+          "group": "oiHelper@2"
+        }
       ]
     },
     "configuration": {
       "title": "OI 学习助手",
       "properties": {
-        "oiHelper.dailyProblemCount": {
+        "oiHelper.targetExam": {
+          "type": "string",
+          "enum": [
+            "none",
+            "CSP-J",
+            "CSP-S",
+            "NOIP"
+          ],
+          "enumDescriptions": [
+            "不设考试",
+            "CSP-J：学完零基础和普及组",
+            "CSP-S：学完到提高组",
+            "NOIP：学完到提高组"
+          ],
+          "default": "none",
+          "description": "目标考试。插件会按考试日期排计划。"
+        },
+        "oiHelper.examDate": {
+          "type": "string",
+          "default": "",
+          "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$",
+          "description": "考试日期，格式 2026-11-28。留空时用估计的日期（CSP 按十月最后一个周六，NOIP 按十一月最后一个周六），请以 CCF 公布的为准。"
+        },
+        "oiHelper.weekdayMinutes": {
           "type": "integer",
-          "default": 3,
-          "minimum": 1,
-          "maximum": 20,
-          "description": "每天题单里放几道题。"
+          "default": 90,
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "上学的日子（周一到周五）每天能学多少分钟。"
+        },
+        "oiHelper.weekendMinutes": {
+          "type": "integer",
+          "default": 180,
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "周六、周日每天能学多少分钟。"
         },
         "oiHelper.luoguUser": {
           "type": "string",
@@ -106,9 +283,50 @@
           "type": "string",
           "default": "luogu",
           "description": "“新建代码文件”时，代码放在当前工作区的哪个文件夹里。"
+        },
+        "oiHelper.compiler": {
+          "type": "string",
+          "default": "g++",
+          "description": "运行测试点时用的编译器。找不到时填完整路径，例如 C:\\\\mingw64\\\\bin\\\\g++.exe。"
+        },
+        "oiHelper.compileArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "-O2",
+            "-std=c++14"
+          ],
+          "description": "编译参数。默认和 CSP/NOIP 考场一致（-O2 -std=c++14）。"
+        },
+        "oiHelper.timeLimit": {
+          "type": "integer",
+          "default": 1000,
+          "minimum": 50,
+          "maximum": 60000,
+          "description": "默认的时间限制（毫秒）。在比赛助手面板里可以给每道题单独改；从洛谷导入的题会自动用题目的时间限制。"
+        },
+        "oiHelper.companion": {
+          "type": "boolean",
+          "default": true,
+          "description": "接收浏览器扩展 Competitive Companion 发来的题目和样例（在洛谷题目页点它的绿色加号）。"
+        },
+        "oiHelper.companionPort": {
+          "type": "integer",
+          "default": 27121,
+          "description": "接收 Competitive Companion 的端口。默认 27121，和 Competitive Companion 的默认设置一致。改了要重启 VS Code。"
         }
       }
-    }
+    },
+    "keybindings": [
+      {
+        "command": "oiHelper.runTests",
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t",
+        "when": "editorTextFocus && resourceExtname =~ /^\\.(cpp|cc|cxx)$/i"
+      }
+    ]
   },
   "scripts": {
     "compile": "tsc -p ./",

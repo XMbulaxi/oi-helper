@@ -157,6 +157,67 @@ export async function fetchPassed(user: string, cookie?: string): Promise<string
   }
 }
 
+/**
+ * Pull a problem's title out of the problem-page JSON. Luogu has moved the
+ * title around between site versions (problem.title, problem.content.name,
+ * ...), so look in the known places first, then search the whole object for
+ * the problem with this pid.
+ */
+export function parseProblemTitle(json: unknown, pid?: string): string | undefined {
+  const j = json as any;
+  const str = (x: unknown) => (typeof x === "string" && x.trim() ? x.trim() : undefined);
+  for (const p of [j?.data?.problem, j?.currentData?.problem, j?.problem]) {
+    const t = str(p?.title) ?? str(p?.name) ?? str(p?.content?.name) ?? str(p?.content?.title);
+    if (t) return t;
+  }
+  // Search: an object whose pid matches and that has a title-like field.
+  const seen = new Set<unknown>();
+  const walk = (o: any, depth: number): string | undefined => {
+    if (!o || typeof o !== "object" || seen.has(o) || depth > 8) return undefined;
+    seen.add(o);
+    if (!pid || o.pid === pid) {
+      const t = str(o.title) ?? str(o.name) ?? str(o.content?.name);
+      if (t && o.pid) return t;
+    }
+    for (const v of Object.values(o)) {
+      const t = walk(v, depth + 1);
+      if (t) return t;
+    }
+    return undefined;
+  };
+  return walk(j, 0);
+}
+
+/** Result of looking up one problem: its title, "missing" (404), or "unknown" (page loaded but no title found). */
+export type TitleLookup = { title: string } | { missing: true } | { unknown: string };
+
+export async function fetchProblemTitle(pid: string, cookie?: string): Promise<TitleLookup> {
+  let lastKeys = "";
+  for (const url of [`${BASE}/problem/${pid}`, `${BASE}/problem/${pid}?_contentOnly=1`]) {
+    try {
+      const json = await getJson(url, cookie);
+      const title = parseProblemTitle(json, pid);
+      if (title) return { title };
+      lastKeys = describe(json);
+      log(`${pid}：返回的数据里没找到题名，数据结构：${lastKeys}`);
+    } catch (e) {
+      if (e instanceof LuoguError && /404/.test(e.message)) return { missing: true };
+      throw e;
+    }
+  }
+  return { unknown: `页面能打开，但没找到题名（${lastKeys}）` };
+}
+
+/** Short outline of a JSON object's keys, for the log. */
+function describe(json: unknown): string {
+  const j = json as any;
+  if (!j || typeof j !== "object") return typeof j;
+  const top = Object.keys(j).slice(0, 8).join(",");
+  const data = j.data && typeof j.data === "object" ? ` data:{${Object.keys(j.data).slice(0, 8).join(",")}}` : "";
+  const prob = j.data?.problem && typeof j.data.problem === "object" ? ` problem:{${Object.keys(j.data.problem).slice(0, 12).join(",")}}` : "";
+  return `{${top}}${data}${prob}`;
+}
+
 export function problemUrl(pid: string): string {
   return `${BASE}/problem/${pid}`;
 }

@@ -1,0 +1,820 @@
+{
+  "id": "tigao",
+  "name": "提高组（CSP-S / NOIP）",
+  "description": "已经掌握普及组内容，目标是 CSP-S 和 NOIP 常考的进阶数据结构、动态规划、图论、字符串和数论。",
+  "minutes": {
+    "basic": 60,
+    "advanced": 120,
+    "lesson": 90
+  },
+  "units": [
+    {
+      "id": "t01-divide",
+      "title": "分治与归并排序",
+      "lesson": "lessons/tigao/01-divide.md",
+      "problems": [
+        {
+          "pid": "P1908",
+          "title": "逆序对",
+          "level": "basic"
+        },
+        {
+          "pid": "P1309",
+          "title": "[NOIP2011 普及组] 瑞士轮",
+          "level": "basic"
+        },
+        {
+          "pid": "P1228",
+          "title": "地毯填补问题",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1257",
+          "title": "平面上的最接近点对",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t02-st",
+      "title": "倍增与 ST 表",
+      "lesson": "lessons/tigao/02-st.md",
+      "problems": [
+        {
+          "pid": "P3865",
+          "title": "【模板】ST 表 & RMQ 问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P2880",
+          "title": "[USACO07JAN] Balanced Lineup G",
+          "level": "basic"
+        },
+        {
+          "pid": "P1816",
+          "title": "忠诚",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2251",
+          "title": "质量检测",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t03-mono",
+      "title": "单调栈与单调队列",
+      "lesson": "lessons/tigao/03-mono.md",
+      "problems": [
+        {
+          "pid": "P5788",
+          "title": "【模板】单调栈",
+          "level": "basic"
+        },
+        {
+          "pid": "P1886",
+          "title": "【模板】单调队列 / 滑动窗口",
+          "level": "basic"
+        },
+        {
+          "pid": "P2947",
+          "title": "[USACO09MAR] Look Up S",
+          "level": "basic"
+        },
+        {
+          "pid": "P1901",
+          "title": "发射站",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1714",
+          "title": "切蛋糕",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2032",
+          "title": "扫描",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2422",
+          "title": "良好的感觉",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t04-heap-hash",
+      "title": "堆与哈希",
+      "lesson": "lessons/tigao/04-heap-hash.md",
+      "problems": [
+        {
+          "pid": "P3378",
+          "title": "【模板】堆",
+          "level": "basic"
+        },
+        {
+          "pid": "P3370",
+          "title": "【模板】字符串哈希",
+          "level": "basic"
+        },
+        {
+          "pid": "P1168",
+          "title": "中位数",
+          "level": "basic"
+        },
+        {
+          "pid": "P1801",
+          "title": "黑匣子",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1631",
+          "title": "序列合并",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2827",
+          "title": "[NOIP2016 提高组] 蚯蚓",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t05-bit",
+      "title": "树状数组",
+      "lesson": "lessons/tigao/05-bit.md",
+      "problems": [
+        {
+          "pid": "P3374",
+          "title": "【模板】树状数组 1",
+          "level": "basic"
+        },
+        {
+          "pid": "P3368",
+          "title": "【模板】树状数组 2",
+          "level": "basic"
+        },
+        {
+          "pid": "P1966",
+          "title": "[NOIP2013 提高组] 火柴排队",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1972",
+          "title": "[SDOI2009] HH的项链",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t06-segtree",
+      "title": "线段树",
+      "lesson": "lessons/tigao/06-segtree.md",
+      "problems": [
+        {
+          "pid": "P3372",
+          "title": "【模板】线段树 1",
+          "level": "basic"
+        },
+        {
+          "pid": "P1531",
+          "title": "I Hate It",
+          "level": "basic"
+        },
+        {
+          "pid": "P3373",
+          "title": "【模板】线段树 2",
+          "level": "basic"
+        },
+        {
+          "pid": "P2574",
+          "title": "XOR的艺术",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1438",
+          "title": "无聊的数列",
+          "level": "advanced"
+        },
+        {
+          "pid": "P4513",
+          "title": "小白逛公园",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t07-dsu",
+      "title": "并查集进阶",
+      "lesson": "lessons/tigao/07-dsu.md",
+      "problems": [
+        {
+          "pid": "P1892",
+          "title": "[BalticOI 2003] 团伙 (Day 2)",
+          "level": "basic"
+        },
+        {
+          "pid": "P1525",
+          "title": "[NOIP2010 提高组] 关押罪犯",
+          "level": "basic"
+        },
+        {
+          "pid": "P1955",
+          "title": "[NOI2015] 程序自动分析",
+          "level": "basic"
+        },
+        {
+          "pid": "P3958",
+          "title": "[NOIP2017 提高组] 奶酪",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1196",
+          "title": "[NOI2002] 银河英雄传说",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2024",
+          "title": "[NOI2001] 食物链",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t08-search",
+      "title": "搜索进阶：剪枝与状态搜索",
+      "lesson": "lessons/tigao/08-search.md",
+      "problems": [
+        {
+          "pid": "P2730",
+          "title": "[IOI 1996 / USACO3.2] 魔板 Magic Squares",
+          "level": "basic"
+        },
+        {
+          "pid": "P1379",
+          "title": "八数码难题",
+          "level": "basic"
+        },
+        {
+          "pid": "P1120",
+          "title": "[CERC 1995] 小木棍",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1074",
+          "title": "[NOIP2009 提高组] 靶形数独",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1092",
+          "title": "[NOIP2004 提高组] 虫食算",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t09-interval-dp",
+      "title": "线性 DP 与区间 DP",
+      "lesson": "lessons/tigao/09-interval-dp.md",
+      "problems": [
+        {
+          "pid": "P2758",
+          "title": "编辑距离",
+          "level": "basic"
+        },
+        {
+          "pid": "P1435",
+          "title": "[IOI2000] 回文字串",
+          "level": "basic"
+        },
+        {
+          "pid": "P1880",
+          "title": "[NOI1995] 石子合并",
+          "level": "basic"
+        },
+        {
+          "pid": "P1063",
+          "title": "[NOIP2006 提高组] 能量项链",
+          "level": "basic"
+        },
+        {
+          "pid": "P1004",
+          "title": "[NOIP2000 提高组] 方格取数",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1006",
+          "title": "[NOIP2008 提高组] 传纸条",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1005",
+          "title": "[NOIP2007 提高组] 矩阵取数游戏",
+          "level": "advanced"
+        },
+        {
+          "pid": "P4170",
+          "title": "[CQOI2007] 涂色",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1220",
+          "title": "关路灯",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t10-knapsack2",
+      "title": "背包进阶",
+      "lesson": "lessons/tigao/10-knapsack2.md",
+      "problems": [
+        {
+          "pid": "P1077",
+          "title": "[NOIP2012 普及组] 摆花",
+          "level": "basic"
+        },
+        {
+          "pid": "P1776",
+          "title": "宝物筛选",
+          "level": "basic"
+        },
+        {
+          "pid": "P1833",
+          "title": "樱花",
+          "level": "basic"
+        },
+        {
+          "pid": "P5020",
+          "title": "[NOIP2018 提高组] 货币系统",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1156",
+          "title": "[USACO01OPEN] 垃圾陷阱",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t11-tree-dp",
+      "title": "树形 DP",
+      "lesson": "lessons/tigao/11-tree-dp.md",
+      "problems": [
+        {
+          "pid": "P1352",
+          "title": "没有上司的舞会",
+          "level": "basic"
+        },
+        {
+          "pid": "P1122",
+          "title": "最大子树和",
+          "level": "basic"
+        },
+        {
+          "pid": "P2015",
+          "title": "二叉苹果树",
+          "level": "basic"
+        },
+        {
+          "pid": "P2016",
+          "title": "[SEERC 2000] 战略游戏",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2014",
+          "title": "[CTSC1997] 选课",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1040",
+          "title": "[NOIP2003 提高组] 加分二叉树",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3478",
+          "title": "[POI2008] STA-Station",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t12-bitmask-dp",
+      "title": "状压 DP",
+      "lesson": "lessons/tigao/12-bitmask-dp.md",
+      "problems": [
+        {
+          "pid": "P1879",
+          "title": "[USACO06NOV] Corn Fields G",
+          "level": "basic"
+        },
+        {
+          "pid": "P1896",
+          "title": "[SCOI2005] 互不侵犯",
+          "level": "basic"
+        },
+        {
+          "pid": "P1433",
+          "title": "吃奶酪",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1171",
+          "title": "售货员的难题",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2704",
+          "title": "[NOI2001] 炮兵阵地",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t13-digit-dp",
+      "title": "数位 DP",
+      "lesson": "lessons/tigao/13-digit-dp.md",
+      "problems": [
+        {
+          "pid": "P2602",
+          "title": "[ZJOI2010] 数字计数",
+          "level": "basic"
+        },
+        {
+          "pid": "P2657",
+          "title": "[SCOI2009] windy 数",
+          "level": "basic"
+        },
+        {
+          "pid": "P4999",
+          "title": "烦人的数学作业",
+          "level": "advanced"
+        },
+        {
+          "pid": "P4317",
+          "title": "花神的数论题",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t14-dp-opt",
+      "title": "DP 优化：单调队列与前缀和",
+      "lesson": "lessons/tigao/14-dp-opt.md",
+      "problems": [
+        {
+          "pid": "P1725",
+          "title": "琪露诺",
+          "level": "basic"
+        },
+        {
+          "pid": "P2034",
+          "title": "选择数字",
+          "level": "basic"
+        },
+        {
+          "pid": "P2627",
+          "title": "[USACO11OPEN] Mowing the Lawn G",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3957",
+          "title": "[NOIP2017 普及组] 跳房子",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t15-sp2",
+      "title": "最短路进阶：负环、差分约束、分层图",
+      "lesson": "lessons/tigao/15-sp2.md",
+      "problems": [
+        {
+          "pid": "P3385",
+          "title": "【模板】负环",
+          "level": "basic"
+        },
+        {
+          "pid": "P5960",
+          "title": "【模板】差分约束",
+          "level": "basic"
+        },
+        {
+          "pid": "P1993",
+          "title": "小 K 的农场",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1073",
+          "title": "[NOIP2009 提高组] 最优贸易",
+          "level": "advanced"
+        },
+        {
+          "pid": "P4568",
+          "title": "[JLOI2011] 飞行路线",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t16-topo",
+      "title": "拓扑排序与 DAG 上的 DP",
+      "lesson": "lessons/tigao/16-topo.md",
+      "problems": [
+        {
+          "pid": "P1137",
+          "title": "旅行计划",
+          "level": "basic"
+        },
+        {
+          "pid": "P1347",
+          "title": "[ECNA 2001] 排序",
+          "level": "basic"
+        },
+        {
+          "pid": "P1983",
+          "title": "[NOIP2013 普及组] 车站分级",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3243",
+          "title": "[HNOI2015] 菜肴制作",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t17-lca",
+      "title": "LCA 与树上差分",
+      "lesson": "lessons/tigao/17-lca.md",
+      "problems": [
+        {
+          "pid": "P3379",
+          "title": "【模板】最近公共祖先（LCA）",
+          "level": "basic"
+        },
+        {
+          "pid": "P3128",
+          "title": "[USACO15DEC] Max Flow P",
+          "level": "basic"
+        },
+        {
+          "pid": "P2420",
+          "title": "让我们异或吧",
+          "level": "advanced"
+        },
+        {
+          "pid": "P3258",
+          "title": "[JLOI2014] 松鼠的新家",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1967",
+          "title": "[NOIP2013 提高组] 货车运输",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t18-tarjan",
+      "title": "强连通分量、缩点与割点",
+      "lesson": "lessons/tigao/18-tarjan.md",
+      "problems": [
+        {
+          "pid": "P2863",
+          "title": "[USACO06JAN] The Cow Prom S",
+          "level": "basic"
+        },
+        {
+          "pid": "P3387",
+          "title": "【模板】缩点 / 强连通分量",
+          "level": "basic"
+        },
+        {
+          "pid": "P3388",
+          "title": "【模板】割点",
+          "level": "basic"
+        },
+        {
+          "pid": "P2341",
+          "title": "[USACO03FALL / HAOI2006] 受欢迎的牛 G",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2812",
+          "title": "校园网络 / [IOI 1996 / USACO5.3] 校园网 Network of Schools 加强版",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t19-bipartite",
+      "title": "二分图",
+      "lesson": "lessons/tigao/19-bipartite.md",
+      "problems": [
+        {
+          "pid": "P1330",
+          "title": "封锁阳光大学",
+          "level": "basic"
+        },
+        {
+          "pid": "P3386",
+          "title": "【模板】二分图最大匹配",
+          "level": "basic"
+        },
+        {
+          "pid": "P1129",
+          "title": "[ZJOI2007] 矩阵游戏",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2055",
+          "title": "[ZJOI2009] 假期的宿舍",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t20-string",
+      "title": "字符串：KMP 与 Trie",
+      "lesson": "lessons/tigao/20-string.md",
+      "problems": [
+        {
+          "pid": "P3375",
+          "title": "【模板】KMP",
+          "level": "basic"
+        },
+        {
+          "pid": "P8306",
+          "title": "【模板】字典树 / Trie",
+          "level": "basic"
+        },
+        {
+          "pid": "P2580",
+          "title": "于是他错误的点名开始了",
+          "level": "basic"
+        },
+        {
+          "pid": "P4391",
+          "title": "[BalticOI2009] Radio Transmission 无线传输",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2922",
+          "title": "[USACO08DEC] Secret Message G",
+          "level": "advanced"
+        },
+        {
+          "pid": "P4551",
+          "title": "最长异或路径",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t21-number-theory",
+      "title": "数论进阶：扩展欧几里得、逆元、欧拉函数",
+      "lesson": "lessons/tigao/21-number-theory.md",
+      "problems": [
+        {
+          "pid": "P4549",
+          "title": "【模板】裴蜀定理",
+          "level": "basic"
+        },
+        {
+          "pid": "P1082",
+          "title": "[NOIP2012 提高组] 同余方程",
+          "level": "basic"
+        },
+        {
+          "pid": "P3811",
+          "title": "【模板】模意义下的乘法逆元",
+          "level": "basic"
+        },
+        {
+          "pid": "P2613",
+          "title": "【模板】有理数取余",
+          "level": "basic"
+        },
+        {
+          "pid": "P1516",
+          "title": "[ZJOI2002] 青蛙的约会",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2158",
+          "title": "[SDOI2008] 仪仗队",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1290",
+          "title": "欧几里德的游戏",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t22-combinatorics",
+      "title": "组合数学",
+      "lesson": "lessons/tigao/22-combinatorics.md",
+      "problems": [
+        {
+          "pid": "P1313",
+          "title": "[NOIP2011 提高组] 计算系数",
+          "level": "basic"
+        },
+        {
+          "pid": "P2822",
+          "title": "[NOIP2016 提高组] 组合数问题",
+          "level": "basic"
+        },
+        {
+          "pid": "P3807",
+          "title": "【模板】卢卡斯定理/Lucas 定理",
+          "level": "basic"
+        },
+        {
+          "pid": "P3197",
+          "title": "[HNOI2008] 越狱",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1287",
+          "title": "盒子与球",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t23-matrix",
+      "title": "矩阵快速幂",
+      "lesson": "lessons/tigao/23-matrix.md",
+      "problems": [
+        {
+          "pid": "P3390",
+          "title": "【模板】矩阵快速幂",
+          "level": "basic"
+        },
+        {
+          "pid": "P1962",
+          "title": "斐波那契数列",
+          "level": "basic"
+        },
+        {
+          "pid": "P1939",
+          "title": "矩阵加速（数列）",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1349",
+          "title": "广义斐波那契数列",
+          "level": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "t24-noip",
+      "title": "NOIP 真题综合与考场策略",
+      "lesson": "lessons/tigao/24-noip.md",
+      "problems": [
+        {
+          "pid": "P1083",
+          "title": "[NOIP2012 提高组] 借教室",
+          "level": "basic"
+        },
+        {
+          "pid": "P1311",
+          "title": "[NOIP2011 提高组] 选择客栈",
+          "level": "basic"
+        },
+        {
+          "pid": "P1970",
+          "title": "[NOIP2013 提高组] 花匠",
+          "level": "basic"
+        },
+        {
+          "pid": "P1314",
+          "title": "[NOIP2011 提高组] 聪明的质监员",
+          "level": "basic"
+        },
+        {
+          "pid": "P1850",
+          "title": "[NOIP2016 提高组] 换教室",
+          "level": "advanced"
+        },
+        {
+          "pid": "P2680",
+          "title": "[NOIP2015 提高组] 运输计划",
+          "level": "advanced"
+        },
+        {
+          "pid": "P1600",
+          "title": "[NOIP2016 提高组] 天天爱跑步",
+          "level": "advanced"
+        }
+      ]
+    }
+  ]
+}
