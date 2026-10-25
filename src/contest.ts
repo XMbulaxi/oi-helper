@@ -241,10 +241,36 @@ export class ContestView implements vscode.WebviewViewProvider {
           if (f) vscode.window.showTextDocument(vscode.Uri.file(f), { preview: true });
         }
         break;
+      case "switchFile":
+        await this.switchFile();
+        break;
       case "help":
         vscode.commands.executeCommand("oiHelper.contestHelp");
         break;
     }
+  }
+
+  /** Pick another .cpp from the workspace (most recently changed first) and open it. */
+  async switchFile() {
+    const uris = await vscode.workspace.findFiles("**/*.{cpp,cc,cxx}", "**/{node_modules,.git}/**", 2000);
+    if (!uris.length) {
+      vscode.window.showInformationMessage("当前文件夹里没有 .cpp 文件。");
+      return;
+    }
+    const mtime = (u: vscode.Uri) => {
+      try { return fs.statSync(u.fsPath).mtimeMs; } catch { return 0; }
+    };
+    uris.sort((a, b) => mtime(b) - mtime(a));
+    const items = uris.map((u) => ({
+      label: path.basename(u.fsPath),
+      description: vscode.workspace.asRelativePath(path.dirname(u.fsPath)),
+      uri: u,
+      picked: u.fsPath === this.file,
+    }));
+    const pick = await vscode.window.showQuickPick(items, { placeHolder: "选择代码文件（可以输入文件名搜索，最近改过的在前面）", matchOnDescription: true });
+    if (!pick) return;
+    await vscode.window.showTextDocument(pick.uri);
+    this.setFile(pick.uri.fsPath);
   }
 
   async pickFolder() {
@@ -529,12 +555,13 @@ const VERDICT = { AC: "AC 通过", WA: "WA 答案错误", TLE: "TLE 超时", RE:
 function render() {
   if (!state) return;
   if (!state.file) {
-    app.innerHTML = '<p>打开一个 <b>.cpp</b> 代码文件，这里会显示它的测试点。</p><p><a id="help">测试点放在哪？怎么从洛谷导入样例？</a></p>';
+    app.innerHTML = '<p>打开一个 <b>.cpp</b> 代码文件，这里会显示它的测试点。</p><div class="bar"><button id="switch">选择代码文件</button></div><p><a id="help">测试点放在哪？怎么从洛谷导入样例？</a></p>';
     document.getElementById("help").onclick = () => send({ type: "help" });
+    document.getElementById("switch").onclick = () => send({ type: "switchFile" });
     return;
   }
   const busy = state.busy || running.size > 0;
-  let h = '<div class="file">' + esc(state.file) + '</div>';
+  let h = '<div class="head"><span class="file name">' + esc(state.file) + '</span><button class="sec" id="switch" title="换一个代码文件">切换文件</button></div>';
   h += '<div class="muted">测试点文件夹：' + esc(state.dir) + '</div>';
   h += '<div class="bar"><button id="runAll"' + (busy ? " disabled" : "") + '>▶ 全部运行</button>';
   h += '<button class="sec" id="add">+ 新增样例</button>';
@@ -577,6 +604,7 @@ function bind() {
   on("pick", () => send({ type: "pickFolder" }));
   on("open", () => send({ type: "openFolder" }));
   on("help", () => send({ type: "help" }));
+  on("switch", () => send({ type: "switchFile" }));
   const tl = document.getElementById("tl");
   if (tl) tl.onchange = () => { send({ type: "timeLimit", ms: Number(tl.value) }); state.timeLimit = Number(tl.value); };
   for (const box of document.querySelectorAll(".case")) {
