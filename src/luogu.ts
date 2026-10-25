@@ -157,6 +157,23 @@ export async function fetchPassed(user: string, cookie?: string): Promise<string
   }
 }
 
+/** Pull a problem's title out of the problem-page JSON (new or old format). */
+export function parseProblemTitle(json: unknown): string | undefined {
+  const j = json as any;
+  const t = j?.data?.problem?.title ?? j?.currentData?.problem?.title;
+  return typeof t === "string" ? t : undefined;
+}
+
+/** Title of a problem on Luogu, or undefined if the problem does not exist. */
+export async function fetchProblemTitle(pid: string, cookie?: string): Promise<string | undefined> {
+  try {
+    return parseProblemTitle(await getJson(`${BASE}/problem/${pid}`, cookie));
+  } catch (e) {
+    if (e instanceof LuoguError && /404/.test(e.message)) return undefined;
+    throw e;
+  }
+}
+
 export function problemUrl(pid: string): string {
   return `${BASE}/problem/${pid}`;
 }

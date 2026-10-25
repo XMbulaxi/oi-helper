@@ -1,8 +1,8 @@
 {
   "name": "oi-helper",
   "displayName": "OI 学习助手",
-  "description": "给机房学弟学妹的 OI 学习路线：每日题单、知识点讲解、洛谷进度同步。",
-  "version": "0.1.2",
+  "description": "给机房学弟学妹的 OI 学习路线：从零基础到 NOIP，按考试日期排每日任务，知识点讲解，洛谷进度同步。",
+  "version": "0.2.0",
   "publisher": "oi-helper",
   "license": "MIT",
   "engines": {
@@ -29,7 +29,7 @@
       "oiHelper": [
         {
           "id": "oiHelper.today",
-          "name": "今日题单"
+          "name": "今日任务"
         },
         {
           "id": "oiHelper.route",
@@ -40,52 +40,189 @@
     "viewsWelcome": [
       {
         "view": "oiHelper.today",
-        "contents": "还没有选择学习路线。\n[选择学习路线](command:oiHelper.selectRoute)"
+        "contents": "还没有选择从哪个阶段开始学。\n[选择起点阶段](command:oiHelper.selectRoute)"
       },
       {
         "view": "oiHelper.route",
-        "contents": "选好路线后，这里会列出所有单元、讲解和题目。\n[选择学习路线](command:oiHelper.selectRoute)"
+        "contents": "选好起点后，这里会列出零基础、普及组、提高组三个阶段的所有单元、讲解和题目。\n[选择起点阶段](command:oiHelper.selectRoute)"
       }
     ],
     "commands": [
-      { "command": "oiHelper.selectRoute", "title": "选择学习路线", "category": "OI 学习助手", "icon": "$(list-tree)" },
-      { "command": "oiHelper.sync", "title": "同步洛谷进度", "category": "OI 学习助手", "icon": "$(sync)" },
-      { "command": "oiHelper.setLuoguUser", "title": "设置洛谷账号", "category": "OI 学习助手", "icon": "$(account)" },
-      { "command": "oiHelper.setLuoguCookie", "title": "设置洛谷 Cookie", "category": "OI 学习助手", "icon": "$(key)" },
-      { "command": "oiHelper.moreToday", "title": "再来一题", "category": "OI 学习助手", "icon": "$(add)" },
-      { "command": "oiHelper.openProblem", "title": "在洛谷打开", "category": "OI 学习助手", "icon": "$(link-external)" },
-      { "command": "oiHelper.startCoding", "title": "新建代码文件", "category": "OI 学习助手", "icon": "$(file-code)" },
-      { "command": "oiHelper.toggleDone", "title": "标记完成 / 取消", "category": "OI 学习助手", "icon": "$(check)" },
-      { "command": "oiHelper.openLesson", "title": "打开知识点讲解", "category": "OI 学习助手", "icon": "$(book)" }
+      {
+        "command": "oiHelper.selectRoute",
+        "title": "选择起点阶段",
+        "category": "OI 学习助手",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "oiHelper.setGoal",
+        "title": "设置目标考试和每天学习时间",
+        "category": "OI 学习助手",
+        "icon": "$(calendar)"
+      },
+      {
+        "command": "oiHelper.sync",
+        "title": "同步洛谷进度",
+        "category": "OI 学习助手",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "oiHelper.setLuoguUser",
+        "title": "设置洛谷账号",
+        "category": "OI 学习助手",
+        "icon": "$(account)"
+      },
+      {
+        "command": "oiHelper.setLuoguCookie",
+        "title": "设置洛谷 Cookie",
+        "category": "OI 学习助手",
+        "icon": "$(key)"
+      },
+      {
+        "command": "oiHelper.moreToday",
+        "title": "再来一题",
+        "category": "OI 学习助手",
+        "icon": "$(add)"
+      },
+      {
+        "command": "oiHelper.openProblem",
+        "title": "在洛谷打开",
+        "category": "OI 学习助手",
+        "icon": "$(link-external)"
+      },
+      {
+        "command": "oiHelper.startCoding",
+        "title": "新建代码文件",
+        "category": "OI 学习助手",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "oiHelper.toggleDone",
+        "title": "标记完成 / 取消",
+        "category": "OI 学习助手",
+        "icon": "$(check)"
+      },
+      {
+        "command": "oiHelper.openLesson",
+        "title": "打开知识点讲解",
+        "category": "OI 学习助手",
+        "icon": "$(book)"
+      },
+      {
+        "command": "oiHelper.checkContent",
+        "title": "用洛谷核对题目",
+        "category": "OI 学习助手",
+        "icon": "$(checklist)"
+      }
     ],
     "menus": {
       "view/title": [
-        { "command": "oiHelper.sync", "when": "view == oiHelper.today", "group": "navigation@1" },
-        { "command": "oiHelper.moreToday", "when": "view == oiHelper.today", "group": "navigation@2" },
-        { "command": "oiHelper.selectRoute", "when": "view == oiHelper.route", "group": "navigation@1" },
-        { "command": "oiHelper.setLuoguUser", "when": "view == oiHelper.route", "group": "navigation@2" }
+        {
+          "command": "oiHelper.sync",
+          "when": "view == oiHelper.today",
+          "group": "navigation@1"
+        },
+        {
+          "command": "oiHelper.moreToday",
+          "when": "view == oiHelper.today",
+          "group": "navigation@2"
+        },
+        {
+          "command": "oiHelper.setGoal",
+          "when": "view == oiHelper.today",
+          "group": "navigation@3"
+        },
+        {
+          "command": "oiHelper.selectRoute",
+          "when": "view == oiHelper.route",
+          "group": "navigation@1"
+        },
+        {
+          "command": "oiHelper.setLuoguUser",
+          "when": "view == oiHelper.route",
+          "group": "navigation@2"
+        },
+        {
+          "command": "oiHelper.checkContent",
+          "when": "view == oiHelper.route",
+          "group": "more@1"
+        }
       ],
       "view/item/context": [
-        { "command": "oiHelper.startCoding", "when": "viewItem =~ /^problem/", "group": "inline@1" },
-        { "command": "oiHelper.toggleDone", "when": "viewItem =~ /^problem/", "group": "inline@2" },
-        { "command": "oiHelper.openLesson", "when": "viewItem == unit", "group": "inline@1" }
+        {
+          "command": "oiHelper.startCoding",
+          "when": "viewItem =~ /^problem/",
+          "group": "inline@1"
+        },
+        {
+          "command": "oiHelper.toggleDone",
+          "when": "viewItem =~ /^(problem|lesson)/",
+          "group": "inline@2"
+        },
+        {
+          "command": "oiHelper.openLesson",
+          "when": "viewItem == unit",
+          "group": "inline@1"
+        }
       ],
       "commandPalette": [
-        { "command": "oiHelper.openProblem", "when": "false" },
-        { "command": "oiHelper.startCoding", "when": "false" },
-        { "command": "oiHelper.toggleDone", "when": "false" },
-        { "command": "oiHelper.openLesson", "when": "false" }
+        {
+          "command": "oiHelper.openProblem",
+          "when": "false"
+        },
+        {
+          "command": "oiHelper.startCoding",
+          "when": "false"
+        },
+        {
+          "command": "oiHelper.toggleDone",
+          "when": "false"
+        },
+        {
+          "command": "oiHelper.openLesson",
+          "when": "false"
+        }
       ]
     },
     "configuration": {
       "title": "OI 学习助手",
       "properties": {
-        "oiHelper.dailyProblemCount": {
+        "oiHelper.targetExam": {
+          "type": "string",
+          "enum": [
+            "none",
+            "CSP-J",
+            "CSP-S",
+            "NOIP"
+          ],
+          "enumDescriptions": [
+            "不设考试",
+            "CSP-J：学完零基础和普及组",
+            "CSP-S：学完到提高组",
+            "NOIP：学完到提高组"
+          ],
+          "default": "none",
+          "description": "目标考试。插件会按考试日期排计划。"
+        },
+        "oiHelper.examDate": {
+          "type": "string",
+          "default": "",
+          "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$",
+          "description": "考试日期，格式 2026-11-28。留空时用估计的日期（CSP 按十月最后一个周六，NOIP 按十一月最后一个周六），请以 CCF 公布的为准。"
+        },
+        "oiHelper.weekdayMinutes": {
           "type": "integer",
-          "default": 3,
-          "minimum": 1,
-          "maximum": 20,
-          "description": "每天题单里放几道题。"
+          "default": 90,
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "上学的日子（周一到周五）每天能学多少分钟。"
+        },
+        "oiHelper.weekendMinutes": {
+          "type": "integer",
+          "default": 180,
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "周六、周日每天能学多少分钟。"
         },
         "oiHelper.luoguUser": {
           "type": "string",
